@@ -10,7 +10,9 @@ import com.nagarro.yourmartapi.constant.QueriesConstant;
 import com.nagarro.yourmartapi.dao.SellerDao;
 import com.nagarro.yourmartapi.dto.LoginDto;
 import com.nagarro.yourmartapi.dto.ResponsesDto;
+import com.nagarro.yourmartapi.dto.SellerDetailsDto;
 import com.nagarro.yourmartapi.dto.SellerRegistrationDto;
+import com.nagarro.yourmartapi.dto.SellerStatusDto;
 import com.nagarro.yourmartapi.models.Seller;
 import com.nagarro.yourmartapi.models.SellerDetails;
 import com.nagarro.yourmartapi.utils.HibernateUtil;
@@ -127,6 +129,39 @@ public class SellerDaoImpl implements SellerDao {
 		}
 		
 		return response;
+	}
+	
+	public ResponsesDto updateSellerStatus(SellerStatusDto sellerStatusDto) {
+
+		try {
+		Object object=session.load(Seller.class,new Integer(sellerStatusDto.getId()));
+		
+		
+		Seller seller=(Seller) object;
+		seller.setSellerstatus(sellerStatusDto.getStatus());
+		ResponseData data=new ResponseData(sellerStatusDto.getId(),null ,sellerStatusDto.getToken());
+
+			session.getTransaction().commit();
+			response.setStatus(QueriesConstant.SUCCESS);
+			response.setData(data);
+			response.setMessage(null);
+		}
+		catch(Exception e) 
+		{
+			response.setStatus(QueriesConstant.SERVER_ERROR);
+			response.setData(null);
+			response.setMessage(e.getMessage());
+		}
+		finally {
+			return response;
+		}
+		
+	}
+
+	@Override
+	public SellerDetailsDto getSellerList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -6,7 +6,9 @@ import org.springframework.stereotype.Component;
 import com.nagarro.yourmartapi.dao.SellerDao;
 import com.nagarro.yourmartapi.dto.LoginDto;
 import com.nagarro.yourmartapi.dto.ResponsesDto;
+import com.nagarro.yourmartapi.dto.SellerDetailsDto;
 import com.nagarro.yourmartapi.dto.SellerRegistrationDto;
+import com.nagarro.yourmartapi.dto.SellerStatusDto;
 import com.nagarro.yourmartapi.service.SellerService;
 
 @Component
@@ -24,5 +26,13 @@ public class SellerServiceImpl implements SellerService{
 	public ResponsesDto loginSeller(LoginDto loginDto) {
 		return sellerDao.loginSeller(loginDto);
 	}
+	public ResponsesDto updateSellerStatus(SellerStatusDto seller) {
+		return sellerDao.updateSellerStatus(seller);		
+	}
 
+	@Override
+	public SellerDetailsDto getSellerList() {
+
+		return sellerDao.getSellerList();
+	}
 }
