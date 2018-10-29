@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.nagarro.yourmartapi.dao.AdminDao;
-import com.nagarro.yourmartapi.dto.AdminDto;
+import com.nagarro.yourmartapi.dto.LoginDto;
 import com.nagarro.yourmartapi.dto.ResponseDto;
 import com.nagarro.yourmartapi.service.AdminService;
 import com.nagarro.yourmartapi.utils.HibernateUtil;
@@ -22,7 +22,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public ResponseDto<AdminDto> validUser(AdminDto admin) {
+	public ResponseDto<LoginDto> validUser(LoginDto admin) {
 	
 
 //		Criteria cr = session.createCriteria(Admin.class);

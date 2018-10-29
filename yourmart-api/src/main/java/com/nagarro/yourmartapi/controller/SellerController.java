@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nagarro.yourmartapi.dto.LoginDto;
 import com.nagarro.yourmartapi.dto.ResponsesDto;
 import com.nagarro.yourmartapi.dto.SellerRegistrationDto;
 import com.nagarro.yourmartapi.service.SellerService;
@@ -20,6 +21,11 @@ public class SellerController {
 	private ResponsesDto RegisterSeller(@RequestBody SellerRegistrationDto sellerRegistrationDto) {
 		
 		return sellerService.registerSeller(sellerRegistrationDto);
+	}
+	
+	@PostMapping("/login/seller")
+	private ResponsesDto Loginseller(@RequestBody LoginDto loginDto) {
+		return sellerService.loginSeller(loginDto);
 	}
 	
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.nagarro.yourmartapi.constant.QueriesConstant;
 import com.nagarro.yourmartapi.dao.AdminDao;
-import com.nagarro.yourmartapi.dto.AdminDto;
+import com.nagarro.yourmartapi.dto.LoginDto;
 import com.nagarro.yourmartapi.dto.ResponseDto;
 import com.nagarro.yourmartapi.utils.HibernateUtil;
 
@@ -23,9 +23,9 @@ public class AdminDaoImpl implements AdminDao {
 		session.beginTransaction();
 	}
 
-	ResponseDto<AdminDto> response = new ResponseDto();
+	ResponseDto<LoginDto> response = new ResponseDto();
 
-	public ResponseDto<AdminDto> validUser(AdminDto admin) {
+	public ResponseDto<LoginDto> validUser(LoginDto admin) {
 
 		Query loginQuery = this.session.createQuery(QueriesConstant.SELECT_ALL_ADMINS);
 
@@ -34,7 +34,7 @@ public class AdminDaoImpl implements AdminDao {
 		// List<Object> list=loginQuery.getResultList();
 		List<Object[]> list = loginQuery.list();
 
-		AdminDto verifiedAdmin = new AdminDto();
+		LoginDto verifiedAdmin = new LoginDto();
 		if (list.size() != 0) {
 			verifiedAdmin.setId(Integer.parseInt("" + list.get(0)[0]));
 			verifiedAdmin.setUsername((String) list.get(0)[1]);

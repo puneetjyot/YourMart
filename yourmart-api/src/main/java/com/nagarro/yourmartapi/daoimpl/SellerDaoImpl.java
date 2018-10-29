@@ -1,10 +1,14 @@
 package com.nagarro.yourmartapi.daoimpl;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
 import com.nagarro.yourmartapi.constant.QueriesConstant;
 import com.nagarro.yourmartapi.dao.SellerDao;
+import com.nagarro.yourmartapi.dto.LoginDto;
 import com.nagarro.yourmartapi.dto.ResponsesDto;
 import com.nagarro.yourmartapi.dto.SellerRegistrationDto;
 import com.nagarro.yourmartapi.models.Seller;
@@ -77,6 +81,51 @@ public class SellerDaoImpl implements SellerDao {
 			response.setMessage(QueriesConstant.PASSWORD_NOT_MATCH);
 
 		}
+		return response;
+	}
+
+	public ResponsesDto loginSeller(LoginDto loginDto) {
+		Query loginQuery = this.session.createQuery(QueriesConstant.LOGIN_SELLER);
+
+		loginQuery.setParameter("username", loginDto.getUsername());
+		loginQuery.setParameter("password", loginDto.getPassword());
+		try {
+		List<Object[]> list = loginQuery.list();
+		if (list.size() != 0) {
+		int seller_id=(int) list.get(0)[0];
+		String username=(String) list.get(0)[1];
+		String status=(String) list.get(0)[2];
+		
+		ResponseData data=new ResponseData(seller_id, username,"ymart-"+seller_id );
+		if(status.equals(QueriesConstant.APPROVED)) {
+		response.setStatus(QueriesConstant.SUCCESS);
+		response.setData(data);
+		response.setMessage(null);
+		}
+		else if(status.equals(QueriesConstant.NEED_APPROVAL)) {
+			response.setStatus(QueriesConstant.UNAUTHORISED_CODE);
+			response.setData(null);
+			response.setMessage(QueriesConstant.UNAUTHORISED_MESSAGE);
+		}
+		else if(status.equals(QueriesConstant.REJECTED)) {
+			response.setStatus(QueriesConstant.UNAUTHORISED_CODE);
+			response.setData(null);
+			response.setMessage(QueriesConstant.REJECTED_MESSAGE);
+		}
+		}
+		else {
+			response.setStatus(QueriesConstant.UNAUTHENTICATED_CODE);
+			response.setData(null);
+			response.setMessage(QueriesConstant.UNAUTHENTICATED_MESSAGE);
+		}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			response.setStatus(QueriesConstant.SERVER_ERROR);
+			response.setData(null);
+			response.setMessage(e.getMessage());
+		}
+		
 		return response;
 	}
 
