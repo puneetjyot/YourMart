@@ -2,6 +2,7 @@ package com.nagarro.yourmartapi.daoimpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.nagarro.yourmartapi.constant.QueriesConstant;
 import com.nagarro.yourmartapi.dao.SellerDao;
-import com.nagarro.yourmartapi.dto.Response;
 import com.nagarro.yourmartapi.dto.LoginDto;
+import com.nagarro.yourmartapi.dto.Response;
 import com.nagarro.yourmartapi.dto.ResponsesDto;
 import com.nagarro.yourmartapi.dto.SellerDetailsDto;
 import com.nagarro.yourmartapi.dto.SellerRegistrationDto;
@@ -19,6 +20,7 @@ import com.nagarro.yourmartapi.models.Seller;
 import com.nagarro.yourmartapi.models.SellerDetails;
 import com.nagarro.yourmartapi.utils.HibernateUtil;
 import com.nagarro.yourmartapi.utils.ResponseData;
+import com.nagarro.yourmartapi.utils.ValidStatus;
 
 @Component
 public class SellerDaoImpl implements SellerDao {
@@ -36,7 +38,6 @@ public class SellerDaoImpl implements SellerDao {
 
 	@Override
 	public ResponsesDto registerUser(SellerRegistrationDto sellerRegistrationDto) {
-		// TODO Auto-generated method stub
 		Seller seller = new Seller();
 		SellerDetails sellerDetails = new SellerDetails();
 		seller.setSellername(sellerRegistrationDto.getUsername());
@@ -52,19 +53,7 @@ public class SellerDaoImpl implements SellerDao {
 		sellerDetails.setAddress(sellerRegistrationDto.toStringAddress());
 		sellerDetails.setSeller(seller);
 		if (sellerRegistrationDto.getPassword().equals(sellerRegistrationDto.getConfirmpassword())) {
-//		if( session.save(sellerDetails) != null) {
-//			ResponseData data=new ResponseData(seller_id, sellerRegistrationDto.getUsername(), "ymart-"+seller_id);
-//			response.setStatus(QueriesConstant.SUCCESS);
-//			response.setData(data);
-//			response.setMessage(null);
-//			session.getTransaction().commit();
-//
-//		}
-//		else {
-//			response.setStatus(QueriesConstant.SERVER_ERROR);
-//			response.setData(null);
-//			response.setMessage(QueriesConstant.SERVER_ERROR_MESSAGE);
-//		}
+
 			try {
 				session.save(sellerDetails);
 				ResponseData data=new ResponseData(seller.getId(), sellerRegistrationDto.getUsername(), "ymart-"+seller.getId());
@@ -167,7 +156,7 @@ public class SellerDaoImpl implements SellerDao {
 
 		//Query listQuery = this.session.createQuery(QueriesConstant.SELECT_LIST);
 		try {
-		Query listQuery = session.createQuery("from SellerDetails");
+		Query listQuery = session.createQuery("from SellerDetails as s order by s.seller.sellerstatus");
 
 		List<SellerDetails> list = listQuery.list();
 
@@ -294,15 +283,37 @@ public class SellerDaoImpl implements SellerDao {
 	}
 
 	@Override
-	public Response<List<SellerDetailsDto>> filterSeller(String status) {
+	public Response<List<SellerDetailsDto>> filterSeller(String status,List<String> sortBy)  {
 		Response<List<SellerDetailsDto>> response=new Response<>();
-		System.out.println("filtering");
-		try {
-		Query listQuery = session.createQuery("from SellerDetails as s where s.seller.sellerstatus=:status" );
-		listQuery.setParameter("status",status );
-		List<SellerDetails> sellerList =  listQuery.list();
+
 		List<SellerDetailsDto> sellerDetailsList=new ArrayList<>();
-		for(SellerDetails seller:sellerList) {
+
+		try {
+		if(ValidStatus.isValidStatus(status)) {
+
+        String whereClause = "";
+        String sortOrder = " ORDER BY FIELD(sellerDetails.seller.sellerstatus, 'NEED_APPROVAL','APPROVED','REJECTED')";
+
+        
+        if(!Objects.isNull(status)) {
+               whereClause = " WHERE sellerDetails.seller.sellerstatus = '" + status + "'"; 
+        } 
+       
+        if(!Objects.isNull(sortBy)) {
+               for(String column: sortBy) {
+                     sortOrder +=", sellerDetails.seller."+column;
+               }
+        }
+        
+        Query query = this.session.createQuery(QueriesConstant.SELECT_SELLERDETAILS_FROM_TABLE + whereClause + sortOrder);
+        
+        System.out.println(query.getQueryString());
+        
+        List<SellerDetails> sellerList = query.list();
+        
+        System.out.println(sellerList.get(0).getSeller().getSellername());
+        
+        for(SellerDetails seller:sellerList) {
 			SellerDetailsDto sellerDetailsDto=new SellerDetailsDto();
 			
 			sellerDetailsDto.setAddress(seller.getAddress());
@@ -317,14 +328,21 @@ public class SellerDaoImpl implements SellerDao {
 		response.setStatus(QueriesConstant.SUCCESS);
 		response.setData(sellerDetailsList);
 		response.setMessage(null);
+		
+		}
+		
+		else {
+			response.setStatus(QueriesConstant.NOT_FOUND_CODE);
+			response.setData(null);
+			response.setMessage(QueriesConstant.WRONG_STATUS);
+		}
 		}
 		catch (Exception e) {
 			response.setStatus(QueriesConstant.NOT_FOUND_CODE);
 			response.setData(null);
 			response.setMessage(e.getMessage());
 		}
-
-		return response;
+	return response;
 	}
 
 }

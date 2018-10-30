@@ -16,20 +16,24 @@ public class QueriesConstant {
 	public static final String REJECTED_MESSAGE="REJECTED USER";
 	public static final String SERVER_ERROR_MESSAGE="SERVER ERROR 500";
 	public static final int PASSWORD_MATCH_ERROR_CODE=403;
-	public static final int NOT_FOUND_CODE=40;
+	public static final int NOT_FOUND_CODE=404;
 	public static final String DETAILS_ERROR_MESSAGE="WRONG DETAILS";
-
+	public static final String WRONG_STATUS="WRONG STATUS INPUT";
 
 	public static final String UNAUTHENTICATED_MESSAGE="UNAUTHENTICATED USER";
 	public static final int UNAUTHENTICATED_CODE=401;
 	public static final String PASSWORD_NOT_MATCH="PASSWORD DOESN'T MATCH";
 	private static final String SELLERTABLE = "com.nagarro.yourmartapi.models.Seller";
+	private static final String SELLERDETAILTABLE = "com.nagarro.yourmartapi.models.SellerDetails";
+
 	public static final String LOGIN_SELLER = "SELECT seller.id,seller.sellername,seller.sellerstatus FROM " + SELLERTABLE
 			+ " as seller where seller.sellername=:username " + "and seller.sellerpassword=:password";
 
 	public static final String SELECT_LIST="Select seller.sellerstatus,sellerdetail.ownername,sellerdetail.companyname"
 			+ "sellerdetail.address,sellerdetail.email,sellerdetail.telephone,sellerdetail.gstnumber from "+ SELLERTABLE
 			+" as s inner join s.sellerDetails" ;
+
+	public static final String SELECT_SELLERDETAILS_FROM_TABLE = "from "+SELLERDETAILTABLE+" as sellerDetails";
 	
 
 

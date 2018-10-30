@@ -23,7 +23,7 @@ public interface SellerDao {
 
 	Response<SellerDetailsDto> updateUser(String id, SellerDetailsDto sellerDetailsDto);
 
-	Response<List<SellerDetailsDto>> filterSeller(String status);
+	Response<List<SellerDetailsDto>> filterSeller(String status,List<String> sortBy);
 
 
 }

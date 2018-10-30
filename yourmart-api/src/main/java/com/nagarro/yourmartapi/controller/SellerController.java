@@ -72,10 +72,10 @@ public class SellerController {
 	}
 	
 	@GetMapping("/seller/type")
-	private Response<List<SellerDetailsDto>> getUserByStatus(@RequestParam("status") String status){
+	private Response<List<SellerDetailsDto>> getUserByStatus(@RequestParam("status") String status,@RequestParam(value="sortBy", required=false) List<String> sortBy ){
 		
 		
-		return sellerService.filterSeller(status);
+		return sellerService.filterSeller(status,sortBy);
 	}
 
 	
