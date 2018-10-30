@@ -1,5 +1,8 @@
 package com.nagarro.yourmartapi.service;
 
+import java.util.List;
+
+import com.nagarro.yourmartapi.dto.Response;
 import com.nagarro.yourmartapi.dto.LoginDto;
 import com.nagarro.yourmartapi.dto.ResponsesDto;
 import com.nagarro.yourmartapi.dto.SellerDetailsDto;
@@ -13,6 +16,12 @@ public interface SellerService {
 	ResponsesDto loginSeller(LoginDto loginDto);
 	public ResponsesDto updateSellerStatus(SellerStatusDto sellerStatusDto);
 
-	SellerDetailsDto getSellerList();
+	Response<List<SellerDetailsDto>> getSellerList();
+
+	Response<SellerDetailsDto> getSeller(String id);
+
+	Response<SellerDetailsDto> updateUser(String id, SellerDetailsDto sellerDetailsDto);
+
+	Response<List<SellerDetailsDto>> filterSeller(String status);
 
 }

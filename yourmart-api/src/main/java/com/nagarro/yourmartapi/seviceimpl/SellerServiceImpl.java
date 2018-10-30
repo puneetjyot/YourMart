@@ -1,9 +1,12 @@
 package com.nagarro.yourmartapi.seviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.nagarro.yourmartapi.dao.SellerDao;
+import com.nagarro.yourmartapi.dto.Response;
 import com.nagarro.yourmartapi.dto.LoginDto;
 import com.nagarro.yourmartapi.dto.ResponsesDto;
 import com.nagarro.yourmartapi.dto.SellerDetailsDto;
@@ -31,8 +34,23 @@ public class SellerServiceImpl implements SellerService{
 	}
 
 	@Override
-	public SellerDetailsDto getSellerList() {
+	public Response<List<SellerDetailsDto>> getSellerList() {
 
 		return sellerDao.getSellerList();
+	}
+
+	@Override
+	public Response<SellerDetailsDto> getSeller(String id) {
+		return sellerDao.getSeller(id);
+	}
+
+	@Override
+	public Response<SellerDetailsDto> updateUser(String id, SellerDetailsDto sellerDetailsDto) {
+		return sellerDao.updateUser(id,sellerDetailsDto);
+	}
+
+	@Override
+	public Response<List<SellerDetailsDto>> filterSeller(String status) {
+		return sellerDao.filterSeller(status);
 	}
 }

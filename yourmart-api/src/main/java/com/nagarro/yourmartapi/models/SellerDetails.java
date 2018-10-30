@@ -1,12 +1,18 @@
 package com.nagarro.yourmartapi.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 
 @XmlRootElement
@@ -37,11 +43,23 @@ public class SellerDetails {
 	@Column(name = "gstnumber", unique = false, nullable = false, length = 1000)
 	private String gstnumber;
 
-	@Column(name = "sellerid", unique = false, nullable = false, length = 1000)
-	private int sellerid;
+	
+	
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="sellerid")
+	private Seller seller;
 
 	
 	
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -98,13 +116,7 @@ public class SellerDetails {
 		this.gstnumber = gstnumber;
 	}
 
-	public int getSellerid() {
-		return sellerid;
-	}
-
-	public void setSellerid(int sellerid) {
-		this.sellerid = sellerid;
-	}
+	
 
 	
 

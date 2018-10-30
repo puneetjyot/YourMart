@@ -2,7 +2,6 @@ package com.nagarro.yourmartapi.dto;
 
 public class SellerDetailsDto {
 	
-	private String username ;
 	  
 	  private String companyname ;
 
@@ -13,13 +12,18 @@ public class SellerDetailsDto {
 	  private String email ;
 	  
 	  private String telephone ;
+	  
+	  private String gstnumber ;
+	  
+	  private String status;
 
-	  public String getUsername() {
-		return username;
+	 
+	public String getStatus() {
+		return status;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getCompanyname() {
@@ -70,5 +74,5 @@ public class SellerDetailsDto {
 		this.gstnumber = gstnumber;
 	}
 
-	private String gstnumber ;
+	
 }
