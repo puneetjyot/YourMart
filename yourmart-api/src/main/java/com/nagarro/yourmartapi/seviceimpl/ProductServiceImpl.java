@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.nagarro.yourmartapi.dao.ProductDao;
+import com.nagarro.yourmartapi.dto.NewProductDto;
+import com.nagarro.yourmartapi.dto.Response;
 import com.nagarro.yourmartapi.models.Product;
 import com.nagarro.yourmartapi.service.ProductService;
 
@@ -11,13 +13,18 @@ import com.nagarro.yourmartapi.service.ProductService;
 @Component
 public class ProductServiceImpl implements ProductService{
 
-//	@Autowired
-//	ProductDao productDao;
-//	
+	@Autowired
+	ProductDao productDao;
+	
 	@Override
-	public void addProduct(Product product) 
+	public Response<String> addProduct(NewProductDto product) 
 	{
-	productDao.addProduct();	
+	return productDao.addProduct(product);	
+	}
+
+	@Override
+	public Response getProducts(int id) {
+		return productDao.getProducts(id);
 	}
 
 }

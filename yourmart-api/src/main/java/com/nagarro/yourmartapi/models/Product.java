@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -58,15 +60,34 @@ public class Product {
 	@Column(name = "updatedat", unique = false, nullable = false, length = 1000)
 	private LocalDate updatedat;
 	
-	@Column(name = "sellerid", unique = false, nullable = false, length = 1000)
-	private LocalDate sellerid;
-	
 	@Column(name = "comments", unique = false, nullable = false, length = 1000)
 	private String comments;
 	
 	@Column(name = "productattribute", unique = false, nullable = false, length = 1000)
-	private HashMap<String,String> productattribute;
+	private String productattribute;
 	
+	@Column(name = "status", unique = false, nullable = false, length = 1000)
+	private String status;
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@ManyToOne(optional=false)
+    @JoinColumn(name="sellerid")
+	private Seller seller;
+
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
 
 	public int getId() {
 		return id;
@@ -172,14 +193,6 @@ public class Product {
 		this.updatedat = updatedat;
 	}
 
-	public LocalDate getSellerid() {
-		return sellerid;
-	}
-
-	public void setSellerid(LocalDate sellerid) {
-		this.sellerid = sellerid;
-	}
-
 	public String getComments() {
 		return comments;
 	}
@@ -188,11 +201,11 @@ public class Product {
 		this.comments = comments;
 	}
 
-	public HashMap<String, String> getProductattribute() {
+	public String getProductattribute() {
 		return productattribute;
 	}
 
-	public void setProductattribute(HashMap<String, String> productattribute) {
+	public void setProductattribute(String productattribute) {
 		this.productattribute = productattribute;
 	}
 
