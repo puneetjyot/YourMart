@@ -34,6 +34,8 @@ public class QueriesConstant {
 			+" as s inner join s.sellerDetails" ;
 
 	public static final String SELECT_SELLERDETAILS_FROM_TABLE = "from "+SELLERDETAILTABLE+" as sellerDetails";
+
+	public static final String NOPRODUCTFOUND = "NO PRODUCT FOUND";
 	
 
 

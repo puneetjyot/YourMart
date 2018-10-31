@@ -24,9 +24,15 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/{id}")
-	public Response getProduct(@PathVariable String id)
+	public Response getProductList(@PathVariable String id)
 	{
 		return productService.getProducts(Integer.parseInt(id));
+	}
+	
+	@GetMapping("/singleproduct/{id}")
+	public Response getProduct(@PathVariable String id) {
+		
+		return productService.getProduct(Integer.parseInt(id));
 	}
 	
 	

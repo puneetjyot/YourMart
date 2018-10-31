@@ -109,29 +109,158 @@ public class ProductDaoImpl implements ProductDao {
 
 
 	@Override
-	public Response getProducts(int id) {
-		System.out.println(id);
-		Response<List<NewProductDto>> response=new Response();
+	public Response<List<NewProductDto>> getProducts(int id) {
+		Response<List<NewProductDto>> response=new Response<>();
+		try {
 		List<NewProductDto> newProductDto =new ArrayList<>();
 		Query query = this.session.createQuery("FROM Product where sellerid=:id");
 		query.setParameter("id",id);
 		
 		List<Product> productList=query.list();
+		if(productList.size()>0) {
 	
 		for(Product product:productList) {
-			System.out.println(product.getLongdescription());
+			query=this.session.createQuery("Select categories.categoryname From Category as categories where categories.product.id=:id");
+			query.setParameter("id", product.getId());
+			
+			List<String> categoryName=query.list();
+			String[] categoryarray=categoryName.toArray(new String[0]);
+			
+			query=this.session.createQuery("Select gallery.imageurl From Gallery as gallery where gallery.product.id=:id");
+			query.setParameter("id", product.getId());
+			
+			List<String> imageUrl=query.list();
+			String[] galleryarray=imageUrl.toArray(new String[0]);
+			
+			
+			System.out.println(product.getCreatedat());
+			NewProductDto productDto=new NewProductDto();
+			 productDto.setCategories(categoryarray);
+			 productDto.setGalleryImages(galleryarray);
+			productDto.setComments(product.getComments());
+			productDto.setCreatedat(product.getCreatedat());
+			productDto.setDimensions(product.getDimensions());
+			productDto.setId(product.getId());
+			productDto.setLongdiscription(product.getLongdescription());
+			productDto.setMrp(product.getMrp());
+			productDto.setPrimaryimage(product.getPrimaryimage());
+			productDto.setProductattributes(product.getProductattribute());
+			productDto.setProductname(product.getProductname());
+			productDto.setSellerId(product.getSeller().getId());
+			productDto.setSellerproductcode(product.getProductcode());
+			productDto.setShortdiscription(product.getShortdiscription());
+			productDto.setSsp(product.getSsp());
+			productDto.setStatus(product.getStatus());
+			productDto.setUpdatedat(product.getUpdatedat());
+			productDto.setUsageinstructins(product.getUsageinstructions());
+			productDto.setYmp(product.getYmp());
+			newProductDto.add(productDto);
 		}
+		response.setStatus(QueriesConstant.SUCCESS);
+		response.setData(newProductDto);
+		response.setMessage(null);
 		
 		
-//		for(Category product:productList) {
-//			System.out.println(product);
-//		}
-//		
+		
+		}
+		else {
+			response.setStatus(QueriesConstant.NOT_FOUND_CODE);
+			response.setData(null);
+			response.setMessage(QueriesConstant.NOPRODUCTFOUND);
+		}
+		}
+		catch (Exception e) {
+
+			response.setStatus(QueriesConstant.SERVER_ERROR);
+			response.setData(null);
+			response.setMessage(e.getMessage());
+		}
 
 		
 		
-		return null;
+		return response;
 	}
+
+
+	@Override
+	public Response<NewProductDto> getProduct(int id) {
+		
+		Response<NewProductDto> response=new Response<>();
+		
+		try {
+		Query query=this.session.createQuery("from Product as product where product.id=:id");
+		query.setParameter("id", id);
+		
+		
+		List<Product> productList=query.list();
+		if(!productList.isEmpty()) {
+		Product product=productList.get(0);
+		
+		query=this.session.createQuery("Select categories.categoryname From Category as categories where categories.product.id=:id");
+		query.setParameter("id", id);
+		
+		List<String> categoryName=query.list();
+		String[] categoryarray=categoryName.toArray(new String[0]);
+		
+		query=this.session.createQuery("Select gallery.imageurl From Gallery as gallery where gallery.product.id=:id");
+		query.setParameter("id", id);
+		
+		List<String> imageUrl=query.list();
+		String[] galleryarray=imageUrl.toArray(new String[0]);
+		
+		NewProductDto productDto=new NewProductDto();
+		 productDto.setCategories(categoryarray);
+		 productDto.setGalleryImages(galleryarray);
+		productDto.setComments(product.getComments());
+		productDto.setCreatedat(product.getCreatedat());
+		productDto.setDimensions(product.getDimensions());
+		productDto.setId(product.getId());
+		productDto.setLongdiscription(product.getLongdescription());
+		productDto.setMrp(product.getMrp());
+		productDto.setPrimaryimage(product.getPrimaryimage());
+		productDto.setProductattributes(product.getProductattribute());
+		productDto.setProductname(product.getProductname());
+		productDto.setSellerId(product.getSeller().getId());
+		productDto.setSellerproductcode(product.getProductcode());
+		productDto.setShortdiscription(product.getShortdiscription());
+		productDto.setSsp(product.getSsp());
+		productDto.setStatus(product.getStatus());
+		productDto.setUpdatedat(product.getUpdatedat());
+		productDto.setUsageinstructins(product.getUsageinstructions());
+		productDto.setYmp(product.getYmp());
+		
+		
+		
+		
+		response.setStatus(QueriesConstant.SUCCESS);
+		response.setData(productDto);
+		response.setMessage(null);
+		
+		}
+		
+		
+		
+		
+	
+		else {
+			response.setStatus(QueriesConstant.NOT_FOUND_CODE);
+			response.setData(null);
+			response.setMessage(QueriesConstant.NOPRODUCTFOUND);
+		}
+		
+		}
+		
+		
+		catch (Exception e) {
+			
+
+			response.setStatus(QueriesConstant.SERVER_ERROR);
+			response.setData(null);
+			response.setMessage(e.getMessage());
+		}
+		return response;
+	}
+	
 		
 		
 	

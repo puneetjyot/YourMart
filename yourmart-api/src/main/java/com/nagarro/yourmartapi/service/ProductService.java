@@ -10,5 +10,7 @@ public interface ProductService {
 
 	Response getProducts(int id);
 
+	Response getProduct(int id);
+
 
 }

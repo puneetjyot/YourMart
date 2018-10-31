@@ -1,6 +1,7 @@
 package com.nagarro.yourmartapi.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import javax.persistence.Column;
@@ -55,10 +56,10 @@ public class Product {
 	private String usageinstructions;
 	
 	@Column(name = "createdat", unique = false, nullable = false, length = 1000)
-	private LocalDate createdat;
+	private LocalDateTime createdat;
 	
 	@Column(name = "updatedat", unique = false, nullable = false, length = 1000)
-	private LocalDate updatedat;
+	private LocalDateTime updatedat;
 	
 	@Column(name = "comments", unique = false, nullable = false, length = 1000)
 	private String comments;
@@ -177,19 +178,19 @@ public class Product {
 		this.usageinstructions = usageinstructions;
 	}
 
-	public LocalDate getCreatedat() {
+	public LocalDateTime getCreatedat() {
 		return createdat;
 	}
 
-	public void setCreatedat(LocalDate createdat) {
+	public void setCreatedat(LocalDateTime createdat) {
 		this.createdat = createdat;
 	}
 
-	public LocalDate getUpdatedat() {
+	public LocalDateTime getUpdatedat() {
 		return updatedat;
 	}
 
-	public void setUpdatedat(LocalDate updatedat) {
+	public void setUpdatedat(LocalDateTime updatedat) {
 		this.updatedat = updatedat;
 	}
 

@@ -9,4 +9,6 @@ public interface ProductDao {
 
 	Response getProducts(int id);
 
+	Response getProduct(int id);
+
 }
