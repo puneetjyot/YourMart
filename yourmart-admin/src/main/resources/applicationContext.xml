@@ -4,12 +4,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-	<!--
-	 <bean id="userService" class="com.nagarro.HumanResourcePortal.service.impl.UserServiceImpl" />
-		<bean id="EmployeeService" class="com.nagarro.HumanResourcePortal.service.impl.EmployeeServiceImpl" />
-			<bean id="uploadService" class="com.nagarro.HumanResourcePortal.service.impl.UploadServiceImpl" />
-		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
- -->
+	
+	 <bean id="adminService" class="com.nagarro.yourmart_admin.serviceimpl.AdminServiceImpl" />
+		
 
 
 </beans>
