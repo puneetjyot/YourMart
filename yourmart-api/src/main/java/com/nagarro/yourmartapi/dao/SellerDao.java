@@ -15,7 +15,7 @@ public interface SellerDao {
 
 	ResponsesDto loginSeller(LoginDto loginDto);
 	
-	ResponsesDto updateSellerStatus(SellerStatusDto seller);
+	Response updateSellerStatus(List<SellerStatusDto> seller);
 
 	Response<List<SellerDetailsDto>> getSellerList();
 

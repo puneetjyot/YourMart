@@ -29,7 +29,7 @@ public class SellerServiceImpl implements SellerService{
 	public ResponsesDto loginSeller(LoginDto loginDto) {
 		return sellerDao.loginSeller(loginDto);
 	}
-	public ResponsesDto updateSellerStatus(SellerStatusDto seller) {
+	public Response updateSellerStatus(List<SellerStatusDto> seller) {
 		return sellerDao.updateSellerStatus(seller);		
 	}
 

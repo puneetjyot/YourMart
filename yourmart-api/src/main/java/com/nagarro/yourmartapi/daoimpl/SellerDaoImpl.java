@@ -122,20 +122,28 @@ public class SellerDaoImpl implements SellerDao {
 		return response;
 	}
 	
-	public ResponsesDto updateSellerStatus(SellerStatusDto sellerStatusDto) {
+	public Response<List<SellerStatusDto>> updateSellerStatus(List<SellerStatusDto> sellerStatusDto) {
+		Response<List<SellerStatusDto>> response=new Response<>();
 
+		
 		try {
-		Object object=session.load(Seller.class,new Integer(sellerStatusDto.getId()));
+			List<SellerStatusDto> list=new ArrayList<>();
+		for(SellerStatusDto sellerStatus:sellerStatusDto) {
+		
+		Object object=session.load(Seller.class,new Integer(sellerStatus.getId()));
 		
 		
 		Seller seller=(Seller) object;
-		seller.setSellerstatus(sellerStatusDto.getStatus());
-		ResponseData data=new ResponseData(sellerStatusDto.getId(),null ,sellerStatusDto.getToken());
+		seller.setSellerstatus(sellerStatus.getStatus());
 
-			session.getTransaction().commit();
-			response.setStatus(QueriesConstant.SUCCESS);
-			response.setData(data);
-			response.setMessage(null);
+			
+			list.add(sellerStatus);
+			
+		}
+		response.setStatus(QueriesConstant.SUCCESS);
+		response.setData(list);
+		response.setMessage(null);
+		session.getTransaction().commit();
 		}
 		catch(Exception e) 
 		{
@@ -143,9 +151,10 @@ public class SellerDaoImpl implements SellerDao {
 			response.setData(null);
 			response.setMessage(e.getMessage());
 		}
-		finally {
+		
+		
 			return response;
-		}
+		
 		
 	}
 
@@ -156,7 +165,7 @@ public class SellerDaoImpl implements SellerDao {
 
 		//Query listQuery = this.session.createQuery(QueriesConstant.SELECT_LIST);
 		try {
-		Query listQuery = session.createQuery("from SellerDetails as s order by s.seller.sellerstatus");
+		Query listQuery = session.createQuery("from SellerDetails as s ORDER BY FIELD(s.seller.sellerstatus, 'NEED_APPROVAL','APPROVED','REJECTED')");
 
 		List<SellerDetails> list = listQuery.list();
 
@@ -170,6 +179,7 @@ public class SellerDaoImpl implements SellerDao {
 			sellerDetailsDto.setOwnername(seller.getOwnername());
 			sellerDetailsDto.setTelephone(seller.getTelephone());
 			sellerDetailsDto.setStatus(seller.getSeller().getSellerstatus());
+			sellerDetailsDto.setId(seller.getSeller().getId());
 			
 			
 			allSellers.add(sellerDetailsDto);
@@ -217,6 +227,9 @@ public class SellerDaoImpl implements SellerDao {
 		sellerDetailsDto.setStatus(seller.get(0).getSeller().getSellerstatus());
 		
 		sellerDetailsDto.setTelephone(seller.get(0).getTelephone());
+		
+		sellerDetailsDto.setId(seller.get(0).getSeller().getId());
+
 
 		response.setStatus(QueriesConstant.SUCCESS);
 		response.setData(sellerDetailsDto);

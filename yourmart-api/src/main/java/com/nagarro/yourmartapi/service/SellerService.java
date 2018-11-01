@@ -14,7 +14,7 @@ public interface SellerService {
 	ResponsesDto registerSeller(SellerRegistrationDto sellerRegistrationDto);
 
 	ResponsesDto loginSeller(LoginDto loginDto);
-	public ResponsesDto updateSellerStatus(SellerStatusDto sellerStatusDto);
+	public Response updateSellerStatus(List<SellerStatusDto> sellerStatusDto);
 
 	Response<List<SellerDetailsDto>> getSellerList();
 

@@ -37,16 +37,18 @@ public class SellerController {
 	private ResponsesDto Loginseller(@RequestBody LoginDto loginDto) {
 		return sellerService.loginSeller(loginDto);
 	}
-	@PutMapping("/seller/{id}/status")
-	public ResponsesDto updateSellerStatus(@PathVariable String id,@RequestHeader(value="token") String token,@RequestBody SellerStatusDto sellerStatusDto) 
+	@PutMapping("/seller/status")
+	public Response updateSellerStatus(@RequestHeader(value="token") String token,@RequestBody List<SellerStatusDto> sellerStatusDto) 
 	{
 		
-		System.out.println(id);
+		System.out.println(sellerStatusDto.get(0).getId());
 		System.out.println(token+"token");
-		sellerStatusDto.setToken(token);
-		sellerStatusDto.setId(Integer.parseInt(id));
+		sellerStatusDto.get(0).setToken(token);
+		
 		return sellerService.updateSellerStatus(sellerStatusDto);
 	}
+	
+	
 	
 	@GetMapping("/list/seller")
 	private Response<List<SellerDetailsDto>> getSellerList()
