@@ -50,12 +50,12 @@ public class SellerController {
 	
 	
 	
-	@GetMapping("/list/seller")
-	private Response<List<SellerDetailsDto>> getSellerList()
-	{
-		
-		return sellerService.getSellerList();
-	}
+//	@GetMapping("/list/seller")
+//	private Response<List<SellerDetailsDto>> getSellerList()
+//	{
+//		
+//		return sellerService.getSellerList();
+//	}
 	
 	@GetMapping("/list/seller/{id}")
 	private Response<SellerDetailsDto> getSeller(@PathVariable String id)
@@ -73,10 +73,10 @@ public class SellerController {
 		
 	}
 	
-	@GetMapping("/seller/type")
-	private Response<List<SellerDetailsDto>> getUserByStatus(@RequestParam("status") String status,@RequestParam(value="sortBy", required=false) List<String> sortBy ){
+	@GetMapping("/list/seller")
+	private Response<List<SellerDetailsDto>> getUserByStatus(@RequestParam(value="status",required=false) String status,@RequestParam(value="sortBy", required=false) List<String> sortBy ){
 		
-		
+		System.out.println("here we");
 		return sellerService.filterSeller(status,sortBy);
 	}
 

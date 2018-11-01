@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 import com.nagarro.yourmartapi.constant.QueriesConstant;
 import com.nagarro.yourmartapi.dao.ProductDao;
 import com.nagarro.yourmartapi.dto.NewProductDto;
+import com.nagarro.yourmartapi.dto.ProductStatusDto;
 import com.nagarro.yourmartapi.dto.Response;
 import com.nagarro.yourmartapi.models.Category;
 import com.nagarro.yourmartapi.models.Gallery;
 import com.nagarro.yourmartapi.models.Product;
 import com.nagarro.yourmartapi.models.Seller;
 import com.nagarro.yourmartapi.utils.HibernateUtil;
-import com.nagarro.yourmartapi.utils.ResponseData;
 
 @Component
 public class ProductDaoImpl implements ProductDao {
@@ -258,6 +258,47 @@ public class ProductDaoImpl implements ProductDao {
 			response.setData(null);
 			response.setMessage(e.getMessage());
 		}
+		return response;
+	}
+
+
+	@Override
+	public Response<List<ProductStatusDto>> updateProductStatus(List<ProductStatusDto> productStatusDto) {
+
+		Response<List<ProductStatusDto>> response=new Response<>();
+		
+		try {
+			
+			List<ProductStatusDto> list=new ArrayList<>();
+		for(ProductStatusDto product:productStatusDto) 
+		{
+			Object object=session.load(Product.class,new Integer(product.getId()));
+			Product newproduct=(Product) object;
+			
+			newproduct.setStatus(product.getStatus());
+			
+			if(product.getComment()!=null) {
+				newproduct.setComments(product.getComment());
+
+			}
+			list.add(product);
+		}
+		response.setStatus(QueriesConstant.SUCCESS);
+		response.setData(list);
+		response.setMessage(null);
+		session.getTransaction().commit();
+		
+
+		}
+		
+		catch (Exception e) {
+
+			response.setStatus(QueriesConstant.SERVER_ERROR);
+			response.setData(null);
+			response.setMessage(e.getMessage());
+		
+		}
+		
 		return response;
 	}
 	

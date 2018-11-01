@@ -302,8 +302,9 @@ public class SellerDaoImpl implements SellerDao {
 		List<SellerDetailsDto> sellerDetailsList=new ArrayList<>();
 
 		try {
-		if(ValidStatus.isValidStatus(status)) {
-
+			System.out.println(status);
+	
+			System.out.println("in here");
         String whereClause = "";
         String sortOrder = " ORDER BY FIELD(sellerDetails.seller.sellerstatus, 'NEED_APPROVAL','APPROVED','REJECTED')";
 
@@ -335,6 +336,8 @@ public class SellerDaoImpl implements SellerDao {
 			sellerDetailsDto.setGstnumber(seller.getGstnumber());
 			sellerDetailsDto.setOwnername(seller.getOwnername());
 			sellerDetailsDto.setStatus(seller.getSeller().getSellerstatus());
+			sellerDetailsDto.setId(seller.getSeller().getId());
+
 			sellerDetailsDto.setTelephone(seller.getTelephone());
 			sellerDetailsList.add(sellerDetailsDto);
 		}
@@ -342,13 +345,9 @@ public class SellerDaoImpl implements SellerDao {
 		response.setData(sellerDetailsList);
 		response.setMessage(null);
 		
-		}
 		
-		else {
-			response.setStatus(QueriesConstant.NOT_FOUND_CODE);
-			response.setData(null);
-			response.setMessage(QueriesConstant.WRONG_STATUS);
-		}
+		
+		
 		}
 		catch (Exception e) {
 			response.setStatus(QueriesConstant.NOT_FOUND_CODE);

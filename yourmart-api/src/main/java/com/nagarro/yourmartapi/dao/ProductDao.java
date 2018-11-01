@@ -1,14 +1,19 @@
 package com.nagarro.yourmartapi.dao;
 
+import java.util.List;
+
 import com.nagarro.yourmartapi.dto.NewProductDto;
+import com.nagarro.yourmartapi.dto.ProductStatusDto;
 import com.nagarro.yourmartapi.dto.Response;
 
 public interface ProductDao {
 
 	Response<String> addProduct(NewProductDto product);
 
-	Response getProducts(int id);
+	Response<List<NewProductDto>> getProducts(int id);
 
-	Response getProduct(int id);
+	Response<NewProductDto> getProduct(int id);
+
+	Response updateProductStatus(List<ProductStatusDto> productStatusDto);
 
 }

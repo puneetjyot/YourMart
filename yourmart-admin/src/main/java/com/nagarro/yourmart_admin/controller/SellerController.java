@@ -1,11 +1,16 @@
 package com.nagarro.yourmart_admin.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nagarro.yourmart_admin.dto.SellerDto;
@@ -60,7 +65,24 @@ public class SellerController
 			
 			return mav;
 		} 
+		
+		@RequestMapping(value="/search",method = RequestMethod.GET)
+		public ModelAndView searchAndFilter(ModelAndView model,@RequestParam(value="sortBy", required=false)List<String> sortValues,@RequestParam(value="status", required=false)String filter) {
+			
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("login");
+		Map<String,String> mapQueries=new HashMap<String,String>();
+		for(String sort:sortValues) {
+		mapQueries.put("sortBy", sort);
+		}
+		mapQueries.put("status", filter);
+		SellerDto sellerDto=sellerService.searchAndFilter(mapQueries);
+		mav.addObject("sellerList",sellerDto.getData());
+		
+			return mav;
+		} 
 		 
-
+		
 	
 }

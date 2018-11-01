@@ -14,6 +14,16 @@ public class SellerDetailsDto {
 	public String gstnumber ;
 	  
 	public String status;
+	
+	public String id;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getCompanyname() {
 		return companyname;
