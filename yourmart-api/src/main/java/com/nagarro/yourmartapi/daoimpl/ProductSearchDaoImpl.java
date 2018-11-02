@@ -2,6 +2,7 @@ package com.nagarro.yourmartapi.daoimpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -30,14 +31,20 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 	
 	
 	@Override
-	public Response sortProduct(List<String> sortBy) {
+	public Response<List<Product>> sortProduct(List<String> sortBy ,String status) {
 		Response<List<Product>> response=new Response<>();
 		String querystatement="ORDER BY ";
+		String wherequery="";
+		if(!Objects.isNull(status)) {
+			wherequery="where p.status = '"+status+"' ";
+		}
+		
 		for(String sort:sortBy) {
 			querystatement+="p."+sort+",";
 		}
+		
 		querystatement=querystatement.substring(0, querystatement.length()-1);
- 		Query query = this.session.createQuery("FROM Product as p "+querystatement);
+ 		Query query = this.session.createQuery("FROM Product as p "+wherequery+querystatement);
 		
 		List<Product> productList=query.list();
 			
@@ -47,5 +54,8 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 		
 		return response;
 	}
-
+	
+	
+	
+	
 }

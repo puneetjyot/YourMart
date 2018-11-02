@@ -16,4 +16,6 @@ public interface ProductDao {
 
 	Response updateProductStatus(List<ProductStatusDto> productStatusDto);
 
+	Response getAllProducts();
+
 }

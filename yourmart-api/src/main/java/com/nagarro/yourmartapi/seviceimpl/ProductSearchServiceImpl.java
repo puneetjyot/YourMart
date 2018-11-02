@@ -16,9 +16,9 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 	ProductSearchDao productSearchDao;
 
 	@Override
-	public Response sortProduct(List<String> sortBy) {
+	public Response sortProduct(List<String> sortBy,String status) {
 		// TODO Auto-generated method stub
-		return productSearchDao.sortProduct(sortBy);
+		return productSearchDao.sortProduct(sortBy,status);
 	}
 	
 }

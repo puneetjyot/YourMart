@@ -6,6 +6,6 @@ import com.nagarro.yourmartapi.dto.Response;
 
 public interface ProductSearchService {
 
-	Response sortProduct(List<String> sortBy);
+	Response sortProduct(List<String> sortBy, String status);
 
 }

@@ -181,6 +181,78 @@ public class ProductDaoImpl implements ProductDao {
 		return response;
 	}
 
+	public Response<List<NewProductDto>> getAllProducts() {
+		Response<List<NewProductDto>> response=new Response<>();
+		try {
+		List<NewProductDto> newProductDto =new ArrayList<>();
+		Query query = this.session.createQuery("FROM Product");
+		
+		List<Product> productList=query.list();
+		if(productList.size()>0) {
+	
+		for(Product product:productList) {
+			query=this.session.createQuery("Select categories.categoryname From Category as categories where categories.product.id=:id");
+			query.setParameter("id", product.getId());
+			
+			List<String> categoryName=query.list();
+			String[] categoryarray=categoryName.toArray(new String[0]);
+			
+			query=this.session.createQuery("Select gallery.imageurl From Gallery as gallery where gallery.product.id=:id");
+			query.setParameter("id", product.getId());
+			
+			List<String> imageUrl=query.list();
+			String[] galleryarray=imageUrl.toArray(new String[0]);
+			
+			
+			System.out.println(product.getCreatedat());
+			NewProductDto productDto=new NewProductDto();
+			 productDto.setCategories(categoryarray);
+			 productDto.setGalleryImages(galleryarray);
+			productDto.setComments(product.getComments());
+			productDto.setCreatedat(product.getCreatedat());
+			productDto.setDimensions(product.getDimensions());
+			productDto.setId(product.getId());
+			productDto.setLongdiscription(product.getLongdescription());
+			productDto.setMrp(product.getMrp());
+			productDto.setPrimaryimage(product.getPrimaryimage());
+			productDto.setProductattributes(product.getProductattribute());
+			productDto.setProductname(product.getProductname());
+			productDto.setSellerId(product.getSeller().getId());
+			productDto.setSellerproductcode(product.getProductcode());
+			productDto.setShortdiscription(product.getShortdiscription());
+			productDto.setSsp(product.getSsp());
+			productDto.setStatus(product.getStatus());
+			productDto.setUpdatedat(product.getUpdatedat());
+			productDto.setUsageinstructins(product.getUsageinstructions());
+			productDto.setYmp(product.getYmp());
+			newProductDto.add(productDto);
+		}
+		response.setStatus(QueriesConstant.SUCCESS);
+		response.setData(newProductDto);
+		response.setMessage(null);
+		
+		
+		
+		}
+		else {
+			response.setStatus(QueriesConstant.NOT_FOUND_CODE);
+			response.setData(null);
+			response.setMessage(QueriesConstant.NOPRODUCTFOUND);
+		}
+		}
+		catch (Exception e) {
+
+			response.setStatus(QueriesConstant.SERVER_ERROR);
+			response.setData(null);
+			response.setMessage(e.getMessage());
+		}
+
+		
+		
+		return response;
+	}
+
+
 
 	@Override
 	public Response<NewProductDto> getProduct(int id) {
@@ -301,6 +373,9 @@ public class ProductDaoImpl implements ProductDao {
 		
 		return response;
 	}
+
+
+	
 	
 		
 		

@@ -40,4 +40,9 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.updateProductStatus(productStatusDto);
 	}
 
+	@Override
+	public Response getAllProduct() {
+		return productDao.getAllProducts();
+	}
+
 }

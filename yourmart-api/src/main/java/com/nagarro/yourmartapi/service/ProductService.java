@@ -17,5 +17,7 @@ public interface ProductService {
 
 	Response updateProductStatus(List<ProductStatusDto> productStatusDto);
 
+	Response getAllProduct();
+
 
 }
