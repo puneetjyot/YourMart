@@ -7,6 +7,7 @@
 	
 	 <bean id="adminService" class="com.nagarro.yourmart_admin.serviceimpl.AdminServiceImpl" />
 		 <bean id="sellerService" class="com.nagarro.yourmart_admin.serviceimpl.SellerServiceImpl" />
+			 <bean id="productService" class="com.nagarro.yourmart_admin.serviceimpl.ProductServiceImpl" />
 	
 
 

@@ -133,7 +133,7 @@ public class ProductDaoImpl implements ProductDao {
 			String[] galleryarray=imageUrl.toArray(new String[0]);
 			
 			
-			System.out.println(product.getCreatedat());
+			//System.out.println(product.getCreatedat());
 			NewProductDto productDto=new NewProductDto();
 			 productDto.setCategories(categoryarray);
 			 productDto.setGalleryImages(galleryarray);
@@ -159,7 +159,7 @@ public class ProductDaoImpl implements ProductDao {
 		response.setStatus(QueriesConstant.SUCCESS);
 		response.setData(newProductDto);
 		response.setMessage(null);
-		
+		System.out.println(QueriesConstant.SUCCESS);
 		
 		
 		}

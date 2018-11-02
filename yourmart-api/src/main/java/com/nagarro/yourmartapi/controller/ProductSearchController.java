@@ -22,11 +22,21 @@ public class ProductSearchController
 	
 	
 	@GetMapping("/product")
-	public Response sortProduct(@RequestParam(value="sortBy", required=false) List<String> sortBy,@RequestParam(value="status",required=false)String status)
+	public Response sortProduct(@RequestParam(value="status", required=false) List<String> status,@RequestParam(value="sortBy",required=false)String sortBy)
 	{
-		return productSearchService.sortProduct(sortBy,status);
+		return productSearchService.sortProduct(status,sortBy);
 		
 	}
+	
+	@GetMapping("/list/product/search")
+	public Response searchProduct(@RequestParam(value="companyname",required=false) String companysearch,@RequestParam(value="productcode",required=false) String codesearch,@RequestParam(value="productname",required=false) String productnamesearch,@RequestParam(value="id",required=false) String productid)
+	{
+		
+		return productSearchService.searchProduct(companysearch,codesearch,productnamesearch,productid);
+		
+	}
+	
+	
 	
 	
 	

@@ -71,22 +71,28 @@ public class SellerController
 		} 
 		
 		@RequestMapping(value="/filter",method = RequestMethod.GET)
-		public ModelAndView searchAndFilter(ModelAndView model,@RequestParam(value="sortBy", required=false)List<String> sortValues,@RequestParam(value="status", required=false)String filter) {
+		public ModelAndView searchAndFilter(ModelAndView model,@RequestParam(value="sortBy", required=false)String sortValues,@RequestParam(value="status", required=false)List<String> filter) {
 			
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("login");
-			if(Objects.isNull(filter)&&Objects.isNull(sortValues)) {
+			if(Objects.isNull(filter)&&Objects.isNull(sortValues) ) {
 				SellerDto sellerDto=sellerService.getSellerList();
 				mav.addObject("sellerList",sellerDto.getData());
 				return mav;
 			}
+			
+			
 		
 		
 		Map<String,String> mapQueries=new HashMap<String,String>();
-		for(String sort:sortValues) {
-		mapQueries.put("sortBy", sort);
+		if(!Objects.isNull(filter)) {
+		for(String status:filter) {
+		mapQueries.put(status, "status");
 		}
-		mapQueries.put("status", filter);
+		}
+		if(!Objects.isNull(sortValues)) {
+		mapQueries.put(sortValues, "sortBy");
+		}
 		SellerDto sellerDto=sellerService.searchAndFilter(mapQueries);
 		mav.addObject("sellerList",sellerDto.getData());
 		

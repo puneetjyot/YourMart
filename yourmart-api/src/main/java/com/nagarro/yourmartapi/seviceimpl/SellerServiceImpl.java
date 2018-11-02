@@ -50,7 +50,7 @@ public class SellerServiceImpl implements SellerService{
 	}
 
 	@Override
-	public Response<List<SellerDetailsDto>> filterSeller(String status,List<String> sortBy) {
+	public Response<List<SellerDetailsDto>> filterSeller(List<String> status,String sortBy) {
 		return sellerDao.filterSeller(status,sortBy);
 	}
 

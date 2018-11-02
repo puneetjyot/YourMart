@@ -22,7 +22,7 @@ public interface SellerService {
 
 	Response<SellerDetailsDto> updateUser(String id, SellerDetailsDto sellerDetailsDto);
 
-	Response<List<SellerDetailsDto>> filterSeller(String status, List<String> sortBy);
+	Response<List<SellerDetailsDto>> filterSeller(List<String> sortBy, String status);
 
 	Response<List<SellerDetailsDto>> searchSeller(String ownersearch, String companysearch, String mobilesearch);
 

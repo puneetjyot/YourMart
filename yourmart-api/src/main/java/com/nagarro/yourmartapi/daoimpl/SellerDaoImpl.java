@@ -296,7 +296,7 @@ public class SellerDaoImpl implements SellerDao {
 	}
 
 	@Override
-	public Response<List<SellerDetailsDto>> filterSeller(String status,List<String> sortBy)  {
+	public Response<List<SellerDetailsDto>> filterSeller(List<String> status,String sortBy)  {
 		Response<List<SellerDetailsDto>> response=new Response<>();
 
 		List<SellerDetailsDto> sellerDetailsList=new ArrayList<>();
@@ -309,14 +309,23 @@ public class SellerDaoImpl implements SellerDao {
         String sortOrder = " ORDER BY FIELD(sellerDetails.seller.sellerstatus, 'NEED_APPROVAL','APPROVED','REJECTED')";
 
         
-        if(!Objects.isNull(status)) {
-               whereClause = " WHERE sellerDetails.seller.sellerstatus = '" + status + "'"; 
+        if(!Objects.isNull(sortBy)) {
+               //whereClause = " WHERE sellerDetails.seller.sellerstatus = '" + status + "'";
+        	sortOrder = " ORDER BY sellerDetails.seller."+sortBy;
         } 
        
-        if(!Objects.isNull(sortBy)) {
-               for(String column: sortBy) {
-                     sortOrder +=", sellerDetails.seller."+column;
+        if(!Objects.isNull(status)) {
+        	whereClause = " WHERE sellerDetails.seller.sellerstatus IN(";
+          
+        	int count=0;
+        	for(String eachStatus: status) {
+        		if(count!=0) {
+        			whereClause+=",";
+        		}
+                     whereClause += "'"+eachStatus+"'";
+                     count++;
                }
+        	whereClause += ")";
         }
         
         Query query = this.session.createQuery(QueriesConstant.SELECT_SELLERDETAILS_FROM_TABLE + whereClause + sortOrder);

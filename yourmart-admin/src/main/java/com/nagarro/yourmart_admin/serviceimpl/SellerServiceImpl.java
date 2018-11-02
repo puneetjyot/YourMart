@@ -57,7 +57,7 @@ public class SellerServiceImpl implements SellerService {
         	for(String key: queryParameters.keySet())
         	{		
         		String value = queryParameters.get(key);
-    			target = target.queryParam(key, value);  
+    			target = target.queryParam(value, key);  
     			System.out.println(key+" "+value);
     			}
     		

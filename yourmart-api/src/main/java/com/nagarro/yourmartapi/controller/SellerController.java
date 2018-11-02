@@ -77,7 +77,7 @@ public class SellerController {
 	}
 	
 	@GetMapping("/list/seller")
-	private Response<List<SellerDetailsDto>> getUserByStatus(@RequestParam(value="status",required=false) String status,@RequestParam(value="sortBy", required=false) List<String> sortBy ){
+	private Response<List<SellerDetailsDto>> getUserByStatus(@RequestParam(value="status",required=false) List<String> status,@RequestParam(value="sortBy", required=false)String sortBy ){
 		
 		System.out.println("here we");
 		return sellerService.filterSeller(status,sortBy);

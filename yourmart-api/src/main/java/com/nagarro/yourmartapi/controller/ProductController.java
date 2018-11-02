@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nagarro.yourmartapi.constant.QueriesConstant;
 import com.nagarro.yourmartapi.dto.NewProductDto;
@@ -40,6 +43,7 @@ public class ProductController {
 	@GetMapping("/products/{id}")
 	public Response getProductList(@PathVariable String id)
 	{
+		System.out.println("--------------"+id);
 		return productService.getProducts(Integer.parseInt(id));
 	}
 	
@@ -64,5 +68,10 @@ public class ProductController {
 			return response;
 		}
 	}
+	
+	
+	
+	
+	
 	
 }
