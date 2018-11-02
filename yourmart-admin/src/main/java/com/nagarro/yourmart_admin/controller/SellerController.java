@@ -3,17 +3,21 @@ package com.nagarro.yourmart_admin.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nagarro.yourmart_admin.dto.SellerDto;
+import com.nagarro.yourmart_admin.dto.SellerStausDto;
 import com.nagarro.yourmart_admin.dto.SingleSellerResponseDto;
 import com.nagarro.yourmart_admin.service.SellerService;
 import com.nagarro.yourmart_admin.serviceimpl.SellerServiceImpl;
@@ -66,12 +70,18 @@ public class SellerController
 			return mav;
 		} 
 		
-		@RequestMapping(value="/search",method = RequestMethod.GET)
+		@RequestMapping(value="/filter",method = RequestMethod.GET)
 		public ModelAndView searchAndFilter(ModelAndView model,@RequestParam(value="sortBy", required=false)List<String> sortValues,@RequestParam(value="status", required=false)String filter) {
 			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("login");
+			if(Objects.isNull(filter)&&Objects.isNull(sortValues)) {
+				SellerDto sellerDto=sellerService.getSellerList();
+				mav.addObject("sellerList",sellerDto.getData());
+				return mav;
+			}
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login");
+		
 		Map<String,String> mapQueries=new HashMap<String,String>();
 		for(String sort:sortValues) {
 		mapQueries.put("sortBy", sort);
@@ -82,6 +92,97 @@ public class SellerController
 		
 			return mav;
 		} 
+		
+		@RequestMapping(value="/search",method = RequestMethod.GET)
+		public ModelAndView search(ModelAndView model,@RequestParam(value="search", required=false)String search,@RequestParam(value="searchtext", required=false)String text) {
+			
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("login");
+			if(Objects.isNull(search)||Objects.isNull(text)) {
+
+				SellerDto sellerDto=sellerService.getSellerList();
+				mav.addObject("sellerList",sellerDto.getData());
+				return mav;
+			}
+			
+	
+		
+		SellerDto sellerDto=sellerService.search(search,text);
+		mav.addObject("sellerList",sellerDto.getData());
+		
+			return mav;
+		} 
+		
+		@RequestMapping(value="/approve",method=RequestMethod.GET)
+		public ModelAndView approveSeller(ModelAndView model,@RequestParam(value="check",required=false)List<Integer> sellers ) {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("login");
+			
+			if(Objects.isNull(sellers)) {
+
+				SellerDto sellerDto=sellerService.getSellerList();
+				mav.addObject("sellerList",sellerDto.getData());
+				return mav;
+			}
+			
+			sellerService.approveSeller(sellers);
+			
+			SellerDto sellerDto=sellerService.getSellerList();
+			mav.addObject("sellerList",sellerDto.getData());
+			
+			return mav;
+		}
+		 
+		@RequestMapping(value="/sellerprofile/{id}",method=RequestMethod.GET)
+		public ModelAndView sellerProfile(ModelAndView model,@PathVariable("id") int id ) {
+			
+			System.out.println("getting profile");
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("sellerprofile");
+			System.out.println(id);
+			
+			try {
+				
+				SingleSellerResponseDto singleSellerResponseDto=sellerService.getSeller(id);
+				mav.addObject("seller",singleSellerResponseDto.getData());
+				
+			}
+			
+			catch(Exception e) {
+				System.out.println("dmd");
+				System.out.println(e);
+			}
+			
+			return mav;
+		}
+		
+		@RequestMapping(value="/sellerprofile/changeStatus",method=RequestMethod.POST)
+		public ModelAndView changeStatus(@ModelAttribute("changeStatus") SellerStausDto sellerStatusDto) {
+			//@RequestParam(value="id",required=false)String id,@RequestParam(value="status",required=false) String status
+		
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("sellerprofile");
+//			System.out.println("dsssd");
+//			System.out.println(sellerStatusDto.getId()+" "+sellerStatusDto.getStatus());
+
+			sellerService.changeStatus(sellerStatusDto);
+			
+			
+			try {
+				
+				SingleSellerResponseDto singleSellerResponseDto=sellerService.getSeller(sellerStatusDto.getId());
+				mav.addObject("seller",singleSellerResponseDto.getData());
+				
+			}
+			
+			catch(Exception e) {
+				System.out.println("dmd");
+				System.out.println(e);
+			}
+			
+			return  mav;
+		}
 		 
 		
 	

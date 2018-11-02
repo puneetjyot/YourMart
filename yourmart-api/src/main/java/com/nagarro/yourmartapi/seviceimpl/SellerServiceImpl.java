@@ -53,4 +53,9 @@ public class SellerServiceImpl implements SellerService{
 	public Response<List<SellerDetailsDto>> filterSeller(String status,List<String> sortBy) {
 		return sellerDao.filterSeller(status,sortBy);
 	}
+
+	@Override
+	public Response<List<SellerDetailsDto>> searchSeller(String ownersearch, String companysearch,String mobilenumber) {
+		return sellerDao.seachSeller(ownersearch,companysearch,mobilenumber);
+	}
 }

@@ -41,7 +41,7 @@ public class SellerController {
 	public Response updateSellerStatus(@RequestHeader(value="token") String token,@RequestBody List<SellerStatusDto> sellerStatusDto) 
 	{
 		
-		System.out.println(sellerStatusDto.get(0).getId());
+		System.out.println(sellerStatusDto.get(0).getId()+"hans");
 		System.out.println(token+"token");
 		sellerStatusDto.get(0).setToken(token);
 		
@@ -78,6 +78,12 @@ public class SellerController {
 		
 		System.out.println("here we");
 		return sellerService.filterSeller(status,sortBy);
+	}
+	
+	@GetMapping("/list/seller/search")
+	private Response<List<SellerDetailsDto>> getUserBySearch(@RequestParam(value="ownername",required=false) String ownersearch,@RequestParam(value="companyname",required=false) String companysearch,@RequestParam(value="telephone",required=false) String mobilesearch){
+		
+		return sellerService.searchSeller(ownersearch,companysearch,mobilesearch);
 	}
 
 	

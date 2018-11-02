@@ -24,4 +24,6 @@ public interface SellerService {
 
 	Response<List<SellerDetailsDto>> filterSeller(String status, List<String> sortBy);
 
+	Response<List<SellerDetailsDto>> searchSeller(String ownersearch, String companysearch, String mobilesearch);
+
 }

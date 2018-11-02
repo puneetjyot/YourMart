@@ -357,4 +357,61 @@ public class SellerDaoImpl implements SellerDao {
 	return response;
 	}
 
+	@Override
+	public Response<List<SellerDetailsDto>> seachSeller(String ownersearch, String companysearch, String mobilenumber) {
+		Response<List<SellerDetailsDto>> response=new Response<>();
+
+		List<SellerDetailsDto> sellerDetailsList=new ArrayList<>();
+
+		String query="";
+		if(ownersearch!=null) {
+			query=" where sellerDetails.ownername like :ownername";
+		}
+		else if(companysearch!=null) {
+			query=" where sellerDetails.companyname like :companyname";
+		}
+		else if(mobilenumber!=null) {
+			query=" where sellerDetails.telephone like :telephone";
+		}
+		
+		
+		 Query listquery = this.session.createQuery(QueriesConstant.SELECT_SELLERDETAILS_FROM_TABLE + query);
+		if(ownersearch!=null){
+		 listquery.setParameter("ownername", "%"+ownersearch+"%");
+		}
+		else if(companysearch!=null) {
+			 listquery.setParameter("companyname", "%"+companysearch+"%");	
+		}
+		else if(mobilenumber!=null) {
+			 listquery.setParameter("telephone", "%"+mobilenumber+"%");
+		}
+		
+		
+		 List<SellerDetails> sellerList = listquery.list();
+	        System.out.println(listquery.getQueryString());
+	        System.out.println(sellerList.size());
+	        
+	        for(SellerDetails seller:sellerList) {
+				SellerDetailsDto sellerDetailsDto=new SellerDetailsDto();
+				
+				sellerDetailsDto.setAddress(seller.getAddress());
+				sellerDetailsDto.setCompanyname(seller.getCompanyname());
+				sellerDetailsDto.setEmail(seller.getEmail());
+				sellerDetailsDto.setGstnumber(seller.getGstnumber());
+				sellerDetailsDto.setOwnername(seller.getOwnername());
+				sellerDetailsDto.setStatus(seller.getSeller().getSellerstatus());
+				sellerDetailsDto.setId(seller.getSeller().getId());
+
+				sellerDetailsDto.setTelephone(seller.getTelephone());
+				sellerDetailsList.add(sellerDetailsDto);
+			}
+	        
+	        
+	        response.setStatus(QueriesConstant.SUCCESS);
+			response.setData(sellerDetailsList);
+			response.setMessage(null);
+		
+		return response;
+	}
+
 }

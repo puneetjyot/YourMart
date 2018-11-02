@@ -25,5 +25,7 @@ public interface SellerDao {
 
 	Response<List<SellerDetailsDto>> filterSeller(String status,List<String> sortBy);
 
+	Response<List<SellerDetailsDto>> seachSeller(String ownersearch, String companysearch, String mobilenumber);
+
 
 }
