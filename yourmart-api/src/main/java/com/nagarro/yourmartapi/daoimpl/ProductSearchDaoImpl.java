@@ -32,9 +32,11 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 	@Override
 	public Response sortProduct(List<String> sortBy) {
 		Response<List<Product>> response=new Response<>();
-		
-		String querystatement="ORDER BY p.mrp";
-		
+		String querystatement="ORDER BY ";
+		for(String sort:sortBy) {
+			querystatement+="p."+sort+",";
+		}
+		querystatement=querystatement.substring(0, querystatement.length()-1);
  		Query query = this.session.createQuery("FROM Product as p "+querystatement);
 		
 		List<Product> productList=query.list();
