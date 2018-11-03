@@ -23,4 +23,24 @@ sortAndFilter(query){
   return this.http.get(`${this.BASEURL}product${query}`)
 }
 
+searchSellerID(search,text){
+ 
+    return this.http.get(`${this.BASEURL}products/${text}`)
+  
+}
+search(query){
+  return this.http.get(`${this.BASEURL}list/product/search${query}`)
+}
+addproduct(product){
+return this.http.post(`${this.BASEURL}product`,product)
+}
+updateproduct(product){
+
+  return this.http.put(`${this.BASEURL}singleproduct`,product);
+
+}
+getproduct(productid){
+  return this.http.get(`${this.BASEURL}singleproduct/${productid}`);
+
+}
 }

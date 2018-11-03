@@ -6,7 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
-import { HomeComponent } from './home/home.component'; 
+import { HomeComponent } from './home/home.component';
+import { ProductdetailsComponent } from './productdetails/productdetails.component'; 
 const routes: Routes = [
 
     {
@@ -20,6 +21,10 @@ const routes: Routes = [
     {
       path:'home',
       component:HomeComponent
+    },
+    {
+      path:'product/:id',
+      component:ProductdetailsComponent
     }
 
   ]; 
@@ -28,7 +33,8 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ProductdetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -74,20 +74,35 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
  		Query query1 = this.session.createQuery("from Product as p where p.seller.id =:sellerid");
  		query1.setParameter("sellerid", id);
 		List<NewProductDto> productList=query1.list();
+		
+		if(productList.size()==0) {
+			response.setData(productList);
+			response.setMessage("No Products found");
+			response.setStatus(QueriesConstant.SUCCESS);
+		}
+		else {
 		response.setData(productList);
 		response.setMessage(null);
 		response.setStatus(QueriesConstant.SUCCESS);
-
+		}
 		}
 		else if(!Objects.isNull(codesearch)) {
 				//int productCode=Integer.parseInt(codesearch);
 			Query query = this.session.createQuery("from Product as p where p.productcode Like :productcode");
 	 		query.setParameter("productcode", "%"+codesearch+"%");	
 	 		List<NewProductDto> productList=query.list();
+	 		if(productList.size()==0) {
+				response.setData(productList);
+				response.setMessage("No Products found");
+				response.setStatus(QueriesConstant.SUCCESS);
+			}
+	 		else {
+			
 			response.setData(productList);
 			response.setMessage(null);
 			response.setStatus(QueriesConstant.SUCCESS);
 			System.out.println("------------"+QueriesConstant.SUCCESS);
+	 		}
 		}
 		
 		else if(!Objects.isNull(productnamesearch))
@@ -95,11 +110,19 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 		Query query = this.session.createQuery("from Product as p where p.productname Like :productname");
  		query.setParameter("productname", "%"+productnamesearch+"%");	
  		List<NewProductDto> productList=query.list();
+ 		if(productList.size()==0) {
+			response.setData(productList);
+			response.setMessage("No Products found");
+			response.setStatus(QueriesConstant.SUCCESS);
+		}
+ 		else {
+		
 		response.setData(productList);
 		response.setMessage(null);
 		response.setStatus(QueriesConstant.SUCCESS);
 		System.out.println("------------"+QueriesConstant.SUCCESS);
-		}
+ 		}
+ 		}
 		
 		else if(!Objects.isNull(productid))
 		{
@@ -107,12 +130,19 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 		Query query = this.session.createQuery("from Product as p where p.id =:productid");
  		query.setParameter("productid", productid1);	
  		List<NewProductDto> productList=query.list();
+ 		if(productList.size()==0) {
+			response.setData(productList);
+			response.setMessage("No Products found");
+			response.setStatus(QueriesConstant.SUCCESS);
+		}
+ 		else {
 		response.setData(productList);
 		response.setMessage(null);
 		response.setStatus(QueriesConstant.SUCCESS);
 		System.out.println("------------"+QueriesConstant.SUCCESS);
-		}
+ 			}
 		
+		}
 		}
 		catch (Exception e) {
 

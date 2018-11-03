@@ -1,0 +1,142 @@
+<div *ngIf="!show" class=" d-flex justify-content-center">
+    <div class="loader"></div>
+
+</div>
+<div class="bg-light" *ngIf="show">
+<div class="bg-info d-flex justify-content-between p-3 text-light">
+    <span class="font-weight-light title">YourMart</span>
+     
+  <div class="d-flex">
+     
+      <span class="font-weight-light welcome">Welcome {{user.ownername}}</span>
+    </div>
+    </div>
+    
+    
+
+
+
+
+  <form class="form-group" (ngSubmit)="saveProduct()" [formGroup]="productDetails">
+  <div class="container">
+      <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4 d-flex justify-content-between">
+          <div class="my-5 w-100">
+    
+    
+        <div class="form-group">
+            <label for="empCode">Seller Product Code</label>
+          <input class="form-control mr-1" 
+            placeholder="Product Code" required formControlName="productcode" />
+          </div>
+          <br>
+          
+          
+        <div class="form-group">
+            <label for="empCode">Product Name</label>
+          <input class="form-control mr-1" 
+            placeholder="Product name" required formControlName="productname"/>
+          </div>
+          <br>
+          
+          
+        <div class="form-group">
+            <label for="empCode">Short Discription</label>
+          <input class="form-control mr-1" 
+            placeholder="Short Discription" required formControlName="shortdiscription" />
+          </div>
+          <br>
+          
+          
+        <div class="form-group">
+            <label for="empCode">Dimensions</label>
+          <input class="form-control mr-1" 
+            placeholder="Dimension"  formControlName="dimensions" />
+          </div>
+          <br>
+          
+        <div class="form-group">
+            <label for="empCode">Long Discription</label>
+          <input class="form-control mr-1" 
+            placeholder="Long Discription"  formControlName="longdiscription" />
+          </div>
+          <br>
+          <div class="form-group">
+              <label for="empCode">Usage Instructions</label>
+            <input class="form-control mr-1" 
+              placeholder="Usage Instructions"  formControlName="usageinstructins" />
+            </div>
+            <br>
+           
+            <label for="empCode">Categories</label>
+            <input type="text"  formControlName="categorylist"
+               readonly class="form-control my-3 p-4"
+             placeholder="Enter category">
+  
+    
+    
+          
+        <div class="form-group">
+            <label for="empCode">MRP</label>
+          <input class="form-control mr-1" formControlName="mrp"
+            placeholder="MRP" required  />
+          </div>
+          <br>
+          
+        <div class="form-group">
+            <label for="empCode">SSP</label>
+          <input class="form-control mr-1" formControlName="ssp"
+            placeholder="SSP" required  />
+          </div>
+          <br>
+          
+          
+        <div class="form-group">
+            <label for="empCode">YMP</label>
+          <input class="form-control mr-1" formControlName="ymp"
+            placeholder="YMP" required  />
+          </div>
+          <br>
+          
+          
+          
+        <div class="form-group" *ngIf="newproduct" >
+            <label for="empCode">Seller Id</label>
+          <input class="form-control mr-1" readonly value={{product.sellerId}}
+            placeholder="SELLERID"   />
+          </div>
+          <br>
+     
+          <div class="form-group"  *ngIf="newproduct">
+              <label for="empCode">Seller Comment</label>  
+          <input class="form-control" type="text" readonly value={{product.comments}}
+           placeholder="Comments" name="comments">
+          </div>
+          <br>
+  
+          <div class="form-group"  *ngIf="newproduct">
+              <label for="empCode">Status</label>  
+          <input class="form-control" type="text" readonly value={{product.status}}
+           placeholder="Comments" name="comments">
+          </div>
+          <br>
+          
+          <input *ngIf="!newproduct" class="btn btn-light text-info" type="submit"
+            value="Update Details" />
+  
+            <input *ngIf="newproduct" class="btn btn-light text-info" type="submit"
+            value="Add Product" />
+        
+        
+        </div>  
+      </div>
+    </div>
+  </div>
+  
+  </form>
+      
+  
+  </div>
+  
+  

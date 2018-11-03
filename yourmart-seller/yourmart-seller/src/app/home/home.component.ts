@@ -148,12 +148,28 @@ searchproducts=new FormGroup({
   search(){
     let search=this.searchproducts.value.search
     let text=this.searchproducts.value.searchtext
-  
-    if(search="sellerid"){
-    if(Number.isInteger(text)){
+  console.log(search)
+  console.log(text)
+    if(search==="sellerid"){
       console.log("dsfsdfsfd")
-    this.productService.searchSellerID(this.searchproducts.value.search,this.searchproducts.value.searchtext)
-  }
+
+    this.productService.searchSellerID(search,text)
+    .subscribe((data:any)=>{
+      console.log(data)
+      this.products=data
+
+    })
+  
+} 
+else{
+  console.log("sds")
+  let query=`?${search}=${text}`
+  this.productService.search(query)
+  .subscribe((data:any)=>{
+    console.log(data)
+    this.products=data
+
+  }) 
 }
 }
 
