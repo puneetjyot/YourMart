@@ -16,5 +16,11 @@ getProductList(id){
 
 
 }
+sortAndFilter(query){
+  
+  console.log(query)
+
+  return this.http.get(`${this.BASEURL}product${query}`)
+}
 
 }

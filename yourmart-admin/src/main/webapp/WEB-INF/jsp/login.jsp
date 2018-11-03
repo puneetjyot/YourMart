@@ -77,6 +77,11 @@
              			<input class="submit-btn" type="submit" value="Product Page">
              		</form>
              	</span>
+             	<span class="mx-3">
+             		<form action="home">
+             			<input class="submit-btn" type="submit" value="Seller Page">
+             		</form>
+             	</span>
              
             	<span class="font-weight-light welcome">Welcome <c:out value="${user}" /></span>
        		</div>
@@ -105,7 +110,7 @@
                           <div>
                           <form action="approve">
                                  <c:forEach var="seller" items="${sellerList}">
-                                     <a href="sellerprofile/${seller.id}">
+                                     <div onclick="location.href='sellerprofile/${seller.id}'">
                                        <div class="seller-list-item my-3" >
                                               <div class="row">
                                               <div class="col-sm-1">
@@ -128,7 +133,7 @@
                                                     </div>
                                               </div>
                                        </div>
-                                       </a>
+                                       </div>
                                  </c:forEach>
                                  <input type="submit" value="Approve All">
                                  </form>

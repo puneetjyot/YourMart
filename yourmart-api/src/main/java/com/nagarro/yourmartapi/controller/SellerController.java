@@ -2,6 +2,7 @@
 package com.nagarro.yourmartapi.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nagarro.yourmartapi.dto.Response;
+import com.nagarro.yourmartapi.constant.QueriesConstant;
 import com.nagarro.yourmartapi.dto.LoginDto;
 import com.nagarro.yourmartapi.dto.ResponsesDto;
 import com.nagarro.yourmartapi.dto.SellerDetailsDto;
@@ -60,11 +62,39 @@ public class SellerController {
 //		return sellerService.getSellerList();
 //	}
 	
+	
 	@GetMapping("/list/seller/{id}")
 	private Response<SellerDetailsDto> getSeller(@PathVariable String id)
 	{
 		
 		return sellerService.getSeller(id);
+	}
+	
+	@GetMapping("/currentseller")
+	private Response<SellerDetailsDto> getCurrentSeller(@RequestHeader(value="token")String authtoken)
+	{			Response response=new Response<>();
+
+		try {
+			Integer.parseInt(authtoken.substring(6));
+		}
+		catch(Exception e) {
+			response.setData(null);
+			response.setStatus(QueriesConstant.UNAUTHORISED_CODE);
+			response.setMessage(e.getMessage());
+		}
+		if(Objects.isNull(authtoken)) {
+			response.setData(null);
+			response.setStatus(QueriesConstant.UNAUTHORISED_CODE);
+			response.setMessage(QueriesConstant.UNAUTHORISED_MESSAGE);
+			return response;
+		}
+		
+		else {
+			String id=authtoken.substring(6);
+			return sellerService.getSeller(id);
+
+		}
+	
 	}
 	
 	@PutMapping("/seller/{id}")

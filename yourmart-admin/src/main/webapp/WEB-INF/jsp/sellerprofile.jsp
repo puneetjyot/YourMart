@@ -15,13 +15,26 @@
              .welcome {
                     font-size: 1.3rem;
              }
+              .submit-btn {
+			    background: none;
+			    border: none;
+			    color: #ffffff;
+			    cursor: pointer;
+			}
 </style>
 </head>
 <body>
 <div class="bg-info d-flex justify-content-between p-3 text-light">
              
              <span class="font-weight-light title">YourMart</span>
+            <div class="d-flex">
+             <span class="mx-3">
+             		<form action="/yourmart-admin/home">
+             			<input class="submit-btn" type="submit" value="Seller Page">
+             		</form>
+             	</span>
         <span class="font-weight-light welcome">Welcome <c:out value="${seller.ownername}" /></span>
+       </div>
        </div>
 
 	
@@ -91,7 +104,7 @@
 		<form action="changeStatus" method="post">
 		<input type="hidden" name="Status" value="APPROVED">
 		<input type="hidden" name="id" value="${seller.id+''}">
-		<input class="btn m-3 btn-danger" type="submit" value="Approve ${seller.ownername }">
+		<input class="btn m-3 btn-success" type="submit" value="Approve ${seller.ownername }">
 
 		</form>
 		<form action="changeStatus"  method="post">
@@ -112,7 +125,7 @@
 		<form action="changeStatus"  method="post">
 		<input type="hidden" name="Status" value="APPROVED">
 		<input type="hidden" name="id" value="${seller.id }">
-		<input class="btn m-3 btn-danger" type="submit" value="Approve ${seller.ownername }">
+		<input class="btn m-3 btn-success" type="submit" value="Approve ${seller.ownername }">
 		</form>
 		</c:if>
 	</div>

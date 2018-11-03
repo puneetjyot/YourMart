@@ -19,15 +19,32 @@
              .card{
              width:600px;
              }
+              .submit-btn {
+			    background: none;
+			    border: none;
+			    color: #ffffff;
+			    cursor: pointer;
+			}
 </style>
 </head>
 <body>
 <div class="bg-info d-flex justify-content-between p-3 text-light">
     	<span class="font-weight-light title">YourMart</span>
-                  <span>
+                  
         	
+        <div class="d-flex">
+        <span class="mx-3">
+        	<form action="/yourmart-admin/products">
+            	<input  class="submit-btn" type="submit" value="Product Page">
+            </form>
         </span>
+        <span class="mx-3">
+             		<form action="/yourmart-admin/home">
+             			<input class="submit-btn" type="submit" value="Seller Page">
+             		</form>
+             	</span>
         <span class="font-weight-light welcome">Welcome <c:out value="${user}" /></span>
+	</div>
 	</div>
 	<div class="text-sm-center">
 	<h3>${product.productname}</h3>

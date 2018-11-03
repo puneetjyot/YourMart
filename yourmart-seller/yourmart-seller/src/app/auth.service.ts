@@ -17,5 +17,17 @@ authenticateUser(user:any){
 registerSeller(seller:any){
   return this.http.post(`${this.BASEURL}register/seller`,seller);
 }
-
+currentUser(){
+  console.log("dsasd")
+  return this.http.get(`${this.BASEURL}currentseller`,
+  {
+    headers: {
+      'Content-Type' : 'application/json; charset=utf-8',
+      'Accept'       : 'application/json',
+      'token': `${window.localStorage.getItem("token")}`
+    }
+  
+}
+)
+}
 }

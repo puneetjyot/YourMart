@@ -129,6 +129,11 @@
             	<input  class="submit-btn" type="submit" value="Product Page">
             </form>
         </span>
+        <span class="mx-3">
+             		<form action="home">
+             			<input class="submit-btn" type="submit" value="Seller Page">
+             		</form>
+             	</span>
         <span class="font-weight-light welcome">Welcome <c:out value="${user}" /></span>
 	</div>
 	</div>
