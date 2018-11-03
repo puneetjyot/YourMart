@@ -5,7 +5,8 @@
 <head>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+ <script src="https://www.google.com/recaptcha/api.js" async defer></script> 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 
 body {
@@ -32,13 +33,28 @@ if(!isValid.equalsIgnoreCase("null") && isValid.equalsIgnoreCase("false")){
 %> 
  
              
-                    <form action="authenticate" method="post" class="form-inline">
+                    <form action="authenticate" method="post" class="form-inline" id="form">
                     <input type="text" placeholder="Username" name="username" class="form-control mx-2">
                     <input type="password" placeholder="Password" name="password" class="form-control mx-2">
+                    <div class="g-recaptcha" data-sitekey="6Lf-KngUAAAAAOsJAmh9pT7R3o3cz4z10fQTARzu"></div> 
                     <input type="submit" value="login" class="form-control mx-2">
               </form>
              </div>
             
        </div>
+       
+
+<script>
+$('#form').on('submit', function(e) {
+	  if(grecaptcha.getResponse() == "") {
+	    e.preventDefault();
+	    return false
+	  } else {
+	    return true
+	  }
+	});
+</script> 
+ 
+       
 </body>
 </html>

@@ -76,10 +76,21 @@
 			
 			.dropdown:hover .dropbtn {background-color: #3e8e41;}
 		     .card {
-				 width:400px;
+				 width:300px;
 					}
 					.checkbox{
 					width:10px;}
+					 .submit-btn {
+			    background: none;
+			    border: none;
+			    color: #ffffff;
+			    cursor: pointer;
+			}
+			
+			.image {
+				max-height: 200px;
+			}
+       
        
        </style>
 </head>
@@ -90,7 +101,7 @@
         	<div>
             	<form action="searchproducts" class="form-inline">
         	 <div class="dropdown">
-			  <button class="btn-info" style="height: 40px">'
+			  <button class="btn-info" style="height: 40px">
 			  <i class="fas fa-search p-2"></i>
 			  </button>
 			  <div class="dropdown-content">
@@ -112,71 +123,72 @@
             
            
 		</div>
-        <span>
+		<div class="d-flex">
+        <span class="mx-3">
         	<form action="products">
-            	<input class="btn-info" type="submit" value="Product Page">
+            	<input  class="submit-btn" type="submit" value="Product Page">
             </form>
         </span>
         <span class="font-weight-light welcome">Welcome <c:out value="${user}" /></span>
 	</div>
+	</div>
     <div class="container py-4">
-             <div class="row">
-                    <div class="col-sm-3 px-5 filters">
-                          <div class="">
-                                 <form action="filterproduct">
-                                       <div class="mt-4 mb-2 form-label text-info text-sm-center">Sort By</div>
-                                       <input type="radio" name="sortBy" value="mrp"> Mrp<br>
-                                       <input type="radio" name="sortBy" value="ssp"> Ssp<br>
-                                        <input type="radio" name="sortBy" value="ymp"> Ymp<br>
-                                       <input type="radio" name="sortBy" value="createdAt"> Registration time<br>
-                                       <div class="mt-4 mb-2 form-label text-info text-sm-center">Filter By</div>
-                                       <input type="checkbox" name="status" value="NEW"> New<br>
-                                       <input type="checkbox" name="status" value="APPROVED"> Approved<br>
-                                       <input type="checkbox" name="status" value="REJECTED"> Rejected<br>
-                                       <input type="checkbox" name="status" value="REVIEW"> Review<br>
-                                       
-                                       <div class="">
-                                              <input type="submit" value="Apply" class="mt-4 btn btn-info w-100">
-                                       </div>
-                                 </form>
-                          </div>
-                    </div>
-                    <div class="col-sm-8">
-                          <div class="list-title font-weight-light">Products</div>
-                          
-                          <div>
-                          <form action="approveproduct">
-                                 <c:forEach var="product" items="${productList}">
-                                 <a href="productprofile/${product.id}">
-                                   <div class="d-flex m-3">
-                                   <div class="card">
-								  <img class="card-img-top"  src="${product.primaryimage}" alt="Card image cap">
-								  <div class="card-body"><h4>"${product.shortdiscription }"</h4> 
-								   </a>
-								   <h6 class="text-secondary"><c:out value="${product.sellerproductcode}" /></h6>
-								   <h5 class="text-secondary">MRP rs.<c:out value="${product.mrp}" /></h5>
-									<h6 class="text-secondary"><c:out value="${product.shortdiscription}" /></h6>
-								  
-								   <div>
-                                        <c:if test="${product.status.equals('NEW')}">
-											<input type="checkbox" name="check" value="${product.id}">
-										</c:if>
-										<c:if test="${!product.status.equals('NEW')}">
+ 		<div class="row">
+        	<div class="col-sm-3 px-5 filters">
+            	<div class="">
+                	<form action="filterproduct">
+                    	<div class="mt-4 mb-2 form-label text-info text-sm-center">Sort By</div>
+                        <input type="radio" name="sortBy" value="mrp"> Mrp<br>
+                        <input type="radio" name="sortBy" value="ssp"> Ssp<br>
+                        <input type="radio" name="sortBy" value="ymp"> Ymp<br>
+                        <input type="radio" name="sortBy" value="createdAt"> Registration time<br>
+                        <div class="mt-4 mb-2 form-label text-info text-sm-center">Filter By</div>
+                        <input type="checkbox" name="status" value="NEW"> New<br>
+                        <input type="checkbox" name="status" value="APPROVED"> Approved<br>
+                        <input type="checkbox" name="status" value="REJECTED"> Rejected<br>
+                        <input type="checkbox" name="status" value="REVIEW"> Review<br>
+                        <div class="">
+                        	<input type="submit" value="Apply" class="mt-4 btn btn-info w-100">
+                        </div>
+                   	</form>
+				</div>
+			</div>
+            <div class="col-sm-8">
+            	<div class="list-title font-weight-light">Products</div>
+                <div>
+                	<form action="approveproduct">
+                		<div class="row d-flex justify-content-center">
+	                    	<c:forEach var="product" items="${productList}">
+	                        	<div class="col-sm-5 m-2">
+	                            	<div class="card">
+	                            		<a href="productprofile/${product.id}">
+								  			<img class="card-img-top image"  src="${product.primaryimage}" alt="Card image cap">
+								  			<h4 class="px-3">"${product.shortdiscription }"</h4> 
+								   		</a>
+								   		<div class="card-body">
+										    <h6 class="text-secondary"><c:out value="${product.sellerproductcode}" /></h6>
+										    <h5 class="text-secondary">MRP rs.<c:out value="${product.mrp}" /></h5>
+										    <h6 class="text-secondary"><c:out value="${product.shortdiscription}" /></h6>
+											<div>
+		                                        <c:if test="${product.status.equals('NEW')}">
+													<input type="checkbox" name="check" value="${product.id}">
+												</c:if>
+												<c:if test="${!product.status.equals('NEW')}">
 													<input type="checkbox" name="check" value="" style="visibility: hidden" disabled>
-										</c:if> 
-                                                            </div>
-								  
-								   </div>
+												</c:if> 
+	                                        </div>
+									  	</div>
 									</div>
-									
-									</div>
-								
-			                 </c:forEach>
-                                 <input type="submit" class="btn-info btn" value="Approve All">
-                                 </form>
-                          </div>
-                    </div>
-             </div> 
-       </div>
+								</div>
+							</c:forEach>
+						</div>
+						<div class="d-flex justify-content-center my-3">
+                    		<input type="submit" class="btn-info btn" value="Approve All">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div> 
+	</div>
 </body>
 </html>

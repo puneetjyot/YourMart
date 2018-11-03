@@ -42,6 +42,13 @@ position: relative;
 display: inline-block;
 }
 
+.submit-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+
 .dropdown-content {
 display: none;
 position: absolute;

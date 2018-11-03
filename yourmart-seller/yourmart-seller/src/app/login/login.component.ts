@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     password:new FormControl('')
   });
   errorarr=[];
+  user:any;
   constructor(private authservice:AuthService,private router:Router,private dataService :DatatransferService) { }
 
   ngOnInit() {
@@ -31,7 +32,12 @@ export class LoginComponent implements OnInit {
       this.errorarr.push(`${data.message}`);
       }
       if(data.data!=null){
-        this.dataService.setData(data.data.username);
+        this.user={
+          id:data.data.id,
+          username:data.data.username
+        }
+        this.dataService.setData(this.user);
+        
       window.localStorage.setItem("token",data.data.token)
       this.router.navigateByUrl('/home');
       console.log(window.localStorage.getItem("token"))

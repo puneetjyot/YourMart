@@ -19,6 +19,7 @@
 </head>
 <body>
 <div class="bg-info d-flex justify-content-between p-3 text-light">
+             
              <span class="font-weight-light title">YourMart</span>
         <span class="font-weight-light welcome">Welcome <c:out value="${seller.ownername}" /></span>
        </div>

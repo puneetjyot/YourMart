@@ -41,6 +41,13 @@
                     border-radius: 10px;
                     padding: 15px;
              }
+             
+             .submit-btn {
+			    background: none;
+			    border: none;
+			    color: #ffffff;
+			    cursor: pointer;
+			}
        
        </style>
 </head>
@@ -64,13 +71,15 @@
               
            
              </form>
-             <span>
-             <form action="products">
-             <input class="btn-info" type="submit" value="Product Page">
-             </form>
-             </span>
+             <div class="d-flex">
+             	<span class="mx-3">
+             		<form action="products">
+             			<input class="submit-btn" type="submit" value="Product Page">
+             		</form>
+             	</span>
              
-             <span class="font-weight-light welcome">Welcome <c:out value="${user}" /></span>
+            	<span class="font-weight-light welcome">Welcome <c:out value="${user}" /></span>
+       		</div>
        </div>
        <div class="container py-4">
              <div class="row">
