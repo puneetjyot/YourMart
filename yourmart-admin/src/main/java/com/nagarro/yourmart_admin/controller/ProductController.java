@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nagarro.yourmart_admin.dto.ProductDto;
+import com.nagarro.yourmart_admin.dto.ProductStatusDto;
 import com.nagarro.yourmart_admin.dto.SellerDto;
+import com.nagarro.yourmart_admin.dto.SellerStausDto;
 import com.nagarro.yourmart_admin.service.ProductService;
 import com.nagarro.yourmart_admin.dto.SingleProductResponseDto;
+import com.nagarro.yourmart_admin.dto.SingleSellerResponseDto;
 
 @Controller
 public class ProductController {
@@ -79,10 +83,12 @@ public class ProductController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("products");
+		System.out.println(search+" "+text);
 		if(Objects.isNull(search)||Objects.isNull(text)) {
 
 			 ProductDto products=productService.getAllProducts();
 				mav.addObject("productList",products.getData());
+				System.out.println("not searching");
 			return mav;
 		}
 		
@@ -116,17 +122,21 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/productprofile/{id}",method=RequestMethod.GET)
-	public ModelAndView productProfile(ModelAndView model,@PathVariable("id") int id ) {
+	public ModelAndView productProfile(ModelAndView model,@PathVariable("id") int id,HttpServletRequest request ) {
 		
 		System.out.println("getting profile");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("products");
+		mav.setViewName("productdetails");
 		System.out.println(id);
 		
 		try {
+			HttpSession session=request.getSession();
+			String user=(String) session.getAttribute("user");
 			
-			//SingleProductResponseDto singleProductResponseDto=productService.getProduct(id);
-			//mav.addObject("seller",SingleProductResponseDto.getData());
+			SingleProductResponseDto singleProductResponseDto=productService.getProduct(id);
+			mav.addObject("product",singleProductResponseDto.getData());
+			mav.addObject("user",user);
+			System.out.println("---------"+singleProductResponseDto.getData().getDimensions());
 			
 		}
 		
@@ -137,6 +147,35 @@ public class ProductController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/productprofile/changeStatusProduct",method=RequestMethod.POST)
+	public ModelAndView changeStatus(@ModelAttribute("changeStatusProduct") ProductStatusDto productStatusDto) {
+		//@RequestParam(value="id",required=false)String id,@RequestParam(value="status",required=false) String status
+		
+		System.out.println("ndjdcnjdcnjdcnjdcnjdcnk");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("productdetails");
+		System.out.println("dsssd");
+		System.out.println(productStatusDto.getId()+" "+productStatusDto.getStatus());
+		System.out.println(productStatusDto.getComment());
+		productService.changeStatusProduct(productStatusDto);
+		
+		
+		try {
+			
+			SingleProductResponseDto singleProductResponseDto=productService.getProduct(productStatusDto.getId());
+			mav.addObject("product",singleProductResponseDto.getData());
+			
+		}
+		
+		catch(Exception e) {
+			System.out.println("dmd");
+			System.out.println(e);
+		}
+		
+		return  mav;
+	}
+	 
 	
 	
 }

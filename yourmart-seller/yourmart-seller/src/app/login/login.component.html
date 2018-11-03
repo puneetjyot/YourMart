@@ -1,5 +1,31 @@
-<form [formGroup]="loginform" (ngSubmit)="authenticateSeller()">
-    Username  <input formControlName="username">
-    Password  <input formControlName="password">
-      <button type="submit">Login</button>
+
+
+
+<div class="bg h-100">
+        <div class="d-flex justify-content-center w-100 font p-5" >
+                <span>Welcome Sellers</span>
+                </div>
+                <div class="d-flex align-items-center h-50">
+    <div class="d-flex flex-column w-100">
+    <div class="d-flex flex-column justify-content-center w-100">
+
+<div class="d-flex justify-content-center">
+            <ul *ngIf="errorarr.length != 0">
+                    <li style="color: red" *ngFor="let error of errorarr">
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+<form [formGroup]="loginform" (ngSubmit)="authenticateSeller()" class="form-inline d-flex justify-content-center">
+    <input formControlName="username" class="form-control m-2" placeholder="username" type="text">
+    <input formControlName="password" class="form-control" placeholder="password" type="password">
+      <button type="submit" class="btn btn-outline-light m-2" >Login</button>
       </form>
+     
+    </div>
+    <a class="d-flex justify-content-center" style="color: white" routerLink="/register">Need an account?</a>
+      </div>
+    </div>
+     
+    </div>
+   

@@ -16,6 +16,8 @@ import com.nagarro.yourmart_admin.dto.ProductResponseDto;
 import com.nagarro.yourmart_admin.dto.ProductStatusDto;
 import com.nagarro.yourmart_admin.dto.SellerDto;
 import com.nagarro.yourmart_admin.dto.SellerStausDto;
+import com.nagarro.yourmart_admin.dto.SingleProductResponseDto;
+import com.nagarro.yourmart_admin.dto.SingleSellerResponseDto;
 import com.nagarro.yourmart_admin.service.ProductService;
 
 public class ProductServiceImpl implements ProductService{
@@ -102,9 +104,35 @@ public class ProductServiceImpl implements ProductService{
 	        product.setStatus("APPROVED");
 	        productStausDto.add(product);
 	        }
-	        Response response = target.request(MediaType.APPLICATION_JSON)
+	        target.request(MediaType.APPLICATION_JSON)
 	        		.header("token", "Bearer " + "... encoded token ...")
 	                .put(Entity.entity(productStausDto, MediaType.APPLICATION_JSON));
+	}
+
+	@Override
+	public SingleProductResponseDto getProduct(int id) {
+		
+		Client client = ClientBuilder.newClient();
+        WebTarget target = client.target("http://localhost:8090/");
+        Response response = target.path("singleproduct/"+id).request(MediaType.APPLICATION_JSON)
+                     .get();
+        
+        SingleProductResponseDto product = response.readEntity(SingleProductResponseDto.class);
+        return product;
+	}
+
+	@Override
+	public void changeStatusProduct(ProductStatusDto productStatusDto) {
+
+		
+		Client client = ClientBuilder.newClient();
+        WebTarget target = client.target("http://localhost:8090/");
+        target = target.path("product/status");
+        List<ProductStatusDto> productList=new ArrayList<>();
+        productList.add(productStatusDto);
+        Response response = target.request(MediaType.APPLICATION_JSON)
+        		.header("token", "Bearer " + "... encoded token ...")
+                .put(Entity.entity(productList, MediaType.APPLICATION_JSON));
 	}
 
 }

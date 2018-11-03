@@ -1,0 +1,69 @@
+<div class="bg-light">
+<div class="bg-info d-flex justify-content-between p-3 text-light">
+    <span class="font-weight-light title">YourMart</span>
+      <div class="d-flex">           
+        <div>
+            <form action="searchproducts" class="form-inline">
+         <div class="dropdown">
+      <button class="btn-info" style="height: 40px">'
+      <i class="fas fa-search p-2"></i>
+      </button>
+      <div class="dropdown-content">
+        <div class="text-dark p-2">
+              <input type="radio" name="search" value="sellerid"> Seller Id<br>
+              <input type="radio" name="search" value="companyname"> Company Name<br>
+               <input type="radio" name="search" value="productcode"> Product Code<br>
+               <input type="radio" name="search" value="productname"> Product Name<br>
+               <input type="radio" name="search" value="id"> product id
+            </div>
+      </div>
+    </div>
+        
+        
+              <input type="text" class="form-control" name="searchtext"/> 
+               <input type="submit" class="btn fas-fa-search" value="Search"/>
+             </form>
+          </div>
+          
+         
+  </div>
+      <span>
+        <form action="products">
+            <input class="btn-info" type="submit" value="Product Page">
+          </form>
+      </span>
+      <span class="font-weight-light welcome">Welcome user</span>
+</div>
+  <div class="container py-4">
+           <div class="row">
+                  <div class="col-sm-3 px-5 filters">
+                        <div class="">
+                               <form action="filterproduct">
+                                     <div class="mt-4 mb-2 form-label text-info text-sm-center">Sort By</div>
+                                     <input type="radio" name="sortBy" value="mrp"> Mrp<br>
+                                     <input type="radio" name="sortBy" value="ssp"> Ssp<br>
+                                      <input type="radio" name="sortBy" value="ymp"> Ymp<br>
+                                     <input type="radio" name="sortBy" value="createdAt"> Registration time<br>
+                                     <div class="mt-4 mb-2 form-label text-info text-sm-center">Filter By</div>
+                                     <input type="checkbox" name="status" value="NEW"> New<br>
+                                     <input type="checkbox" name="status" value="APPROVED"> Approved<br>
+                                     <input type="checkbox" name="status" value="REJECTED"> Rejected<br>
+                                     <input type="checkbox" name="status" value="REVIEW"> Review<br>
+                                     
+                                     <div class="">
+                                            <input type="submit" value="Apply" class="mt-4 btn btn-info w-100">
+                                     </div>
+                               </form>
+                        </div>
+                  </div>
+                  <div class="col-sm-8">
+                        <div class="list-title font-weight-light">Products</div>
+                        
+                        <div>
+                       
+                             
+                        </div>
+                  </div>
+           </div> 
+     </div>
+    </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {AuthService} from '../auth.service';
 import {Router} from '@angular/router'
+import  {DatatransferService} from '../datatransfer.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,8 +14,8 @@ export class LoginComponent implements OnInit {
     username:new FormControl(''),
     password:new FormControl('')
   });
-
-  constructor(private authservice:AuthService,private router:Router) { }
+  errorarr=[];
+  constructor(private authservice:AuthService,private router:Router,private dataService :DatatransferService) { }
 
   ngOnInit() {
   }
@@ -26,6 +27,15 @@ export class LoginComponent implements OnInit {
     })
     .subscribe((data:any)=>{
       console.log(data)
+      if(data.message!=null){
+      this.errorarr.push(`${data.message}`);
+      }
+      if(data.data!=null){
+        this.dataService.setData(data.data.username);
+      window.localStorage.setItem("token",data.data.token)
+      this.router.navigateByUrl('/home');
+      console.log(window.localStorage.getItem("token"))
+      }
     })
   }
 

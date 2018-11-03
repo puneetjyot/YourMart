@@ -1,0 +1,12 @@
+.bg{
+background-image: url("https://assets.wordpress.envato-static.com/uploads/2016/03/Modern-Design-Ideas-Trends-for-eCommerce-Websites.jpg");
+}
+.form-control {
+    background: none;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+}
+.font{
+font-family: 'Dancing Script', cursive;
+font-size: 3.2rem;
+}

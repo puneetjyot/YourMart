@@ -338,7 +338,6 @@ public class ProductDaoImpl implements ProductDao {
 	public Response<List<ProductStatusDto>> updateProductStatus(List<ProductStatusDto> productStatusDto) {
 
 		Response<List<ProductStatusDto>> response=new Response<>();
-		
 		try {
 			
 			List<ProductStatusDto> list=new ArrayList<>();
@@ -350,6 +349,7 @@ public class ProductDaoImpl implements ProductDao {
 			newproduct.setStatus(product.getStatus());
 			
 			if(product.getComment()!=null) {
+			//	System.out.println("here are the comments"+product.getComment());
 				newproduct.setComments(product.getComment());
 
 			}
@@ -359,7 +359,6 @@ public class ProductDaoImpl implements ProductDao {
 		response.setData(list);
 		response.setMessage(null);
 		session.getTransaction().commit();
-		
 
 		}
 		
@@ -370,6 +369,7 @@ public class ProductDaoImpl implements ProductDao {
 			response.setMessage(e.getMessage());
 		
 		}
+		System.out.println(response.getMessage());
 		
 		return response;
 	}

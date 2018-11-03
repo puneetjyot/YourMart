@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.nagarro.yourmart_admin.dto.ProductDto;
 import com.nagarro.yourmart_admin.dto.ProductResponseDto;
+import com.nagarro.yourmart_admin.dto.ProductStatusDto;
+import com.nagarro.yourmart_admin.dto.SingleProductResponseDto;
 
 public interface ProductService {
 
@@ -15,5 +17,9 @@ public interface ProductService {
 	ProductDto search(String search, String text);
 
 	void approveSeller(List<Integer> products);
+
+	SingleProductResponseDto getProduct(int id);
+
+	void changeStatusProduct(ProductStatusDto productStatusDto);
 
 }

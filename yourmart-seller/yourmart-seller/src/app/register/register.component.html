@@ -1,0 +1,21 @@
+
+<form [formGroup]="registerform" (ngSubmit)="registerSeller()" class="form-inline d-flex justify-content-center">
+    <input formControlName="username" class="form-control m-2" placeholder="username" type="text">
+    
+
+    <input formControlName="password" class="form-control m-2" placeholder="password" type="password">
+    <input formControlName="confirmpassword" class="form-control m-2" placeholder="confirmpassword" type="password">
+    <input formControlName="companyname" class="form-control m-2" placeholder="companyname" type="text">
+
+    <input formControlName="ownername" class="form-control m-2" placeholder="ownername" type="text">
+
+    <input formControlName="address" class="form-control m-2" placeholder="address" type="text">
+
+    <input formControlName="email" class="form-control m-2" placeholder="email" type="email">
+    <input formControlName="telephone" class="form-control m-2" placeholder="telephone" type="number">
+
+    <input formControlName="gstnumber" class="form-control m-2" placeholder="gstnumber" type="text">
+
+
+      <button type="submit" class="btn btn-outline-light m-2" >Register</button>
+      </form>

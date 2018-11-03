@@ -38,9 +38,7 @@ if(!isValid.equalsIgnoreCase("null") && isValid.equalsIgnoreCase("false")){
                     <input type="submit" value="login" class="form-control mx-2">
               </form>
              </div>
-             <div class="d-flex justify-content-center w-100">
-                    <span class="bg-danger rounded text-light p-1"><c:out value="${error}" /></span>
-             </div>
+            
        </div>
 </body>
 </html>
