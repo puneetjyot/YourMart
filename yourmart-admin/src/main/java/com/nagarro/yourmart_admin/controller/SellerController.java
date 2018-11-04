@@ -8,6 +8,7 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +26,8 @@ import com.nagarro.yourmart_admin.serviceimpl.SellerServiceImpl;
 @Controller
 public class SellerController 
 {
-	//@Autowired
-	SellerService sellerService=new SellerServiceImpl();
+	@Autowired
+	SellerService sellerService;
 	
 		@RequestMapping(value="/home",method = RequestMethod.GET)
 			public ModelAndView home(ModelAndView model,HttpServletRequest request) {

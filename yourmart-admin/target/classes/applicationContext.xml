@@ -4,11 +4,16 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-	
-	 <bean id="adminService" class="com.nagarro.yourmart_admin.serviceimpl.AdminServiceImpl" />
-		 <bean id="sellerService" class="com.nagarro.yourmart_admin.serviceimpl.SellerServiceImpl" />
-			 <bean id="productService" class="com.nagarro.yourmart_admin.serviceimpl.ProductServiceImpl" />
-	
+
+	<bean id="adminService"
+		class="com.nagarro.yourmart_admin.serviceimpl.AdminServiceImpl" />
+	<bean id="sellerService"
+		class="com.nagarro.yourmart_admin.serviceimpl.SellerServiceImpl" />
+	<bean id="productService"
+		class="com.nagarro.yourmart_admin.serviceimpl.ProductServiceImpl" />
+	<bean id="categoryService"
+		class="com.nagarro.yourmart_admin.serviceimpl.CategoryServiceImpl" />
+
 
 
 </beans>

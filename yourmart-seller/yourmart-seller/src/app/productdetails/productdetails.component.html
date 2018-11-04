@@ -3,20 +3,7 @@
 
 </div>
 <div class="bg-light" *ngIf="show">
-<div class="bg-info d-flex justify-content-between p-3 text-light">
- 
-    <a routerLink="/home" routerLinkActive=true> 
-  <span class="font-weight-light title text-light ">YourMart</span>
-</a>
-  <div class="d-flex">
-      <span class="mx-3">
-        	
-            	<span class="text-light link font-weight-light">Home</span>
-         
-        </span>
-      <span class="font-weight-light welcome">Welcome {{user.ownername}}</span>
-    </div>
-    </div>
+<app-titlebar></app-titlebar>
     
     
 
@@ -32,7 +19,7 @@
               <div *ngIf="updatestatus==200">
                   <h2> {{updatemessage}} </h2>
               </div>
-              <br/>
+            
     
         <div class="form-group">
             <label for="empCode">Seller Product Code</label>

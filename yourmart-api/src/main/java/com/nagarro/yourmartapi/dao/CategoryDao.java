@@ -11,4 +11,10 @@ public interface CategoryDao {
 
 	Response<List<NewProductDto>> getProductViaCategory(String category);
 
+	Response<String> addCategory(String categoryname);
+
+	Response<String> deleteCategory(String name);
+	
+	
+
 }

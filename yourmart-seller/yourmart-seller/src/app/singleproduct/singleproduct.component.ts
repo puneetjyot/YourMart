@@ -27,7 +27,7 @@ export class SingleproductComponent implements OnInit {
     });
 
   }
-
+isLoaded:boolean=false;
   user:any;
   ngOnInit() {
 
@@ -36,6 +36,8 @@ export class SingleproductComponent implements OnInit {
       if(data.data!=null){
       this.product=data.data;
       console.log(this.product)
+      this.isLoaded=true;
+
       }
     });
 
@@ -43,11 +45,6 @@ export class SingleproductComponent implements OnInit {
     .subscribe((data:sellerdto)=>{
       console.log(data);
       this.user=data.data;
-      setTimeout(()=>{     
-        this.loaded=true;
-     },
-     500
-     )
    
     })
   }

@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductdetailsComponent } from './productdetails/productdetails.component';
 import { SingleproductComponent } from './singleproduct/singleproduct.component'; 
 import {SlideshowModule} from 'ng-simple-slideshow';
+import { TitlebarComponent } from './titlebar/titlebar.component';
 
 const routes: Routes = [
 
@@ -47,7 +48,8 @@ const routes: Routes = [
     RegisterComponent,
     HomeComponent,
     ProductdetailsComponent,
-    SingleproductComponent
+    SingleproductComponent,
+    TitlebarComponent
   ],
   imports: [
     BrowserModule,

@@ -77,7 +77,7 @@
                 </tr>
                 <tr>
                   <td>Short description</td>
-                  <td>{product.shortdiscription}</td>
+                  <td>${product.shortdiscription}</td>
                 </tr>
                 <tr>
                   <td>Long Description</td>
@@ -122,7 +122,8 @@
 		<form action="changeStatusProduct"  method="post">
 		<input type="hidden" name="Status" value="REJECTED">
 		<input type="hidden" name="id" value="${product.id }">
-		<input class="btn m-3 btn-danger" type="submit" value="Reject ${product.productname }">
+		<input type="hidden" name="comment" id="commentid" value="">
+		<input class="btn m-3 btn-danger" type="submit" value="Reject ${product.productname }" onclick="myFunction()">
 	
 		</form>
 		</c:if>

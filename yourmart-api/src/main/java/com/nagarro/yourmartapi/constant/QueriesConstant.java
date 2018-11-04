@@ -43,5 +43,7 @@ public class QueriesConstant {
 	public static final String SELECT_PRODUCT_FROM_PRODUCTID="from Product as product where product.id=:id";
 	public static final String SELECT_PRODUCT_FROM_SELLERID="FROM Product where sellerid=:id";
 	public static final String SELECT_DISTINCT_CATEGORY="SELECT DISTINCT categoryname FROM Category ";
+	public static final String SELECT_PRODUCT_FROM_CATEGORY="from Product as p where p.id IN (select c.product.id from Category as c where c.categoryname =:category)";
 
+	public static final String NEW = "NEW";
 }

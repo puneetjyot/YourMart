@@ -72,16 +72,18 @@
            
              </form>
              <div class="d-flex">
-             	<span class="mx-3">
+             	<span class="mx-2">
              		<form action="products">
              			<input class="submit-btn" type="submit" value="Product Page">
              		</form>
              	</span>
-             	<span class="mx-3">
-             		<form action="home">
-             			<input class="submit-btn" type="submit" value="Seller Page">
+             	
+             	<span class="ml-2 mr-3">
+             		<form action="category">
+             			<input class="submit-btn" type="submit" value="Category Page">
              		</form>
              	</span>
+             	
              
             	<span class="font-weight-light welcome">Welcome <c:out value="${user}" /></span>
        		</div>
@@ -99,7 +101,7 @@
                                        <input type="checkbox" name="status" value="APPROVED"> Approved<br>
                                        <input type="checkbox" name="status" value="REJECTED"> Rejected<br>
                                        <div class="">
-                                              <input type="submit" value="Apply" class="mt-4 btn btn-info w-100">
+                                              <input type="submit" value="Apply" class="mt-4 btn btn-outline-info w-100">
                                        </div>
                                  </form>
                           </div>
@@ -135,7 +137,7 @@
                                        </div>
                                        </div>
                                  </c:forEach>
-                                 <input type="submit" value="Approve All">
+                                 <input type="submit" class="btn btn-outline-info" value="Approve All">
                                  </form>
                           </div>
                     </div>

@@ -358,6 +358,8 @@ public class SellerDaoImpl implements SellerDao {
         	whereClause += ")";
         }
         
+        System.out.println(QueriesConstant.SELECT_SELLERDETAILS_FROM_TABLE+whereClause+sortOrder);
+        
         Query query = session.createQuery(QueriesConstant.SELECT_SELLERDETAILS_FROM_TABLE + whereClause + sortOrder);
         
         System.out.println(query.getQueryString());

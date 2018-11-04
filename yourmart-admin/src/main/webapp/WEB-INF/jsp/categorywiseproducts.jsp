@@ -6,7 +6,7 @@
 <head>
        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-
+<link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
 		
        <style>
        
@@ -90,6 +90,9 @@
 			.image {
 				max-height: 200px;
 			}
+			.fontawesome{
+					font-family: 'Mali', cursive;
+					}
        
        
        </style>
@@ -97,40 +100,15 @@
 <body class="bg-light">
 	<div class="bg-info d-flex justify-content-between p-3 text-light">
     	<span class="font-weight-light title">YourMart</span>
-        <div class="d-flex">           
-        	<div>
-            	<form action="searchproducts" class="form-inline">
-        	 <div class="dropdown">
-			  <button class="btn-info" style="height: 40px">
-			  <i class="fas fa-search p-2"></i>
-			  </button>
-			  <div class="dropdown-content">
-			    <div class="text-dark p-2">
-	            	<input type="radio" name="search" value="sellerid"> Seller Id<br>
-	            	<input type="radio" name="search" value="companyname"> Company Name<br>
-	             	<input type="radio" name="search" value="productcode"> Product Code<br>
-	             	<input type="radio" name="search" value="productname"> Product Name<br>
-	             	<input type="radio" name="search" value="id"> product id
-	            </div>
-			  </div>
-			</div>
-        	
-        	
-            		<input type="text" class="form-control" name="searchtext"/> 
-             		<input type="submit" class="btn fas-fa-search" value="Search"/>
-             	</form>
-            </div>
-            
-           
-		</div>
+       
 		<div class="d-flex">
         <span class="mx-2">
-        	<form action="home">
+        	<form action="/yourmart-admin/home">
             	<input  class="submit-btn" type="submit" value="Seller Page">
             </form>
         </span>
         <span class="ml-2 mr-3">
-             		<form action="category">
+             		<form action="/yourmart-admin/category">
              			<input class="submit-btn" type="submit" value="Category Page">
              		</form>
              	</span>
@@ -139,32 +117,31 @@
 	</div>
     <div class="container py-4">
  		<div class="row">
-        	<div class="col-sm-3 px-5 filters">
-            	<div class="">
-                	<form action="filterproduct">
-                    	<div class="mt-4 mb-2 form-label text-info text-sm-center">Sort By</div>
-                        <input type="radio" name="sortBy" value="mrp"> Mrp<br>
-                        <input type="radio" name="sortBy" value="ssp"> Ssp<br>
-                        <input type="radio" name="sortBy" value="ymp"> Ymp<br>
-                        <input type="radio" name="sortBy" value="createdAt"> Registration time<br>
-                        <div class="mt-4 mb-2 form-label text-info text-sm-center">Filter By</div>
-                        <input type="checkbox" name="status" value="NEW"> New<br>
-                        <input type="checkbox" name="status" value="APPROVED"> Approved<br>
-                        <input type="checkbox" name="status" value="REJECTED"> Rejected<br>
-                        <input type="checkbox" name="status" value="REVIEW"> Review<br>
-                        <div class="">
-                        	<input type="submit" value="Apply" class="mt-4 btn btn-info w-100">
-                        </div>
-                   	</form>
-				</div>
-			</div>
-            <div class="col-sm-8">
+        	
+            <div class="col-sm-12">
+            <c:if test="${productList.size()!=0 }">
             	<div class="list-title font-weight-light">Products</div>
+            	</c:if>
                 <div>
-                	<form action="approveproduct">
+                	
                 		<div class="row d-flex justify-content-center">
+	                    	
+	                    	<c:if test="${productList.size()==0 }">
+	                    	
+	                    	<div class="d-flex flex-column ">	      
+	                    		<h2 style="color: red" class="fontawesome">No Products of this Category</h2>
+	                    	
+	                    
+	                    	<form action="/yourmart-admin/category/delete/${category }" class="my-4 d-flex justify-content-center">
+	                    	<input type="submit" class="btn btn-danger" value="Delete ${category } Category?">
+	                    	</form>
+	                    	
+	                    	</div>
+	                    	
+	                    	</c:if>
+	                    	<c:if test="${productList.size()!=0 }">
 	                    	<c:forEach var="product" items="${productList}">
-	                        	<div class="col-sm-5 m-2">
+	                        	<div class="col-sm-3 m-3">
 	                            	<div class="card">
 	                            		<a href="productprofile/${product.id}">
 								  			<img class="card-img-top image"  src="${product.primaryimage}" alt="Card image cap">
@@ -175,22 +152,16 @@
 										    <h5 class="text-secondary">MRP rs.<c:out value="${product.mrp}" /></h5>
 										    <h6 class="text-secondary"><c:out value="${product.shortdiscription}" /></h6>
 											<div>
-		                                        <c:if test="${product.status.equals('NEW')||product.status.equals('REVIEW')}">
-													<input type="checkbox" name="check" value="${product.id}">
-												</c:if>
-												<c:if test="${!product.status.equals('NEW')||product.status.equals('REVIEW')}">
-													<input type="checkbox" name="check" value="" style="visibility: hidden" disabled>
-												</c:if> 
+		                                        
 	                                        </div>
 									  	</div>
 									</div>
 								</div>
 							</c:forEach>
+							</c:if>
 						</div>
-						<div class="d-flex justify-content-center my-3">
-                    		<input type="submit" class="btn-info btn" value="Approve All">
-						</div>
-					</form>
+						
+				
 				</div>
 			</div>
 		</div> 

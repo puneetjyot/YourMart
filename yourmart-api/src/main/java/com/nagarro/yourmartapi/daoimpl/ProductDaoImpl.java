@@ -22,14 +22,11 @@ import com.nagarro.yourmartapi.utils.HibernateUtil;
 @Component
 public class ProductDaoImpl implements ProductDao {
 
-	
-	Session session;
+
 	
 	public ProductDaoImpl() {
 
-		session = HibernateUtil.getSessionFactory().openSession();
-
-		session.beginTransaction();
+		
 
 	
 	}
@@ -38,6 +35,9 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public Response<String> addProduct(NewProductDto newProductDto)
 	{
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
 		
 		
 		Response<String> response=new Response();
@@ -58,7 +58,7 @@ public class ProductDaoImpl implements ProductDao {
 		product.setYmp(newProductDto.getYmp()); 
 		product.setPrimaryimage(newProductDto.getPrimaryimage());
 		product.setUsageinstructions(newProductDto.getUsageinstructins());
-		product.setStatus(QueriesConstant.NEED_APPROVAL);
+		product.setStatus(QueriesConstant.NEW);
 		LocalDateTime currenttime=LocalDateTime.now();
 //		product.setCreatedat(currenttime);
 		
@@ -116,23 +116,28 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public Response<List<NewProductDto>> getProducts(int id) {
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
 		Response<List<NewProductDto>> response=new Response<>();
 		try {
 		List<NewProductDto> newProductDto =new ArrayList<>();
-		Query query = this.session.createQuery(QueriesConstant.SELECT_PRODUCT_FROM_SELLERID);
+		Query query = session.createQuery(QueriesConstant.SELECT_PRODUCT_FROM_SELLERID);
 		query.setParameter("id",id);
 		
 		List<Product> productList=query.list();
 		if(productList.size()>0) {
 	
 		for(Product product:productList) {
-			query=this.session.createQuery(QueriesConstant.SELECT_CATEGORY_FROM_PRODUCTID);
+			query=session.createQuery(QueriesConstant.SELECT_CATEGORY_FROM_PRODUCTID);
 			query.setParameter("id", product.getId());
 			
 			List<String> categoryName=query.list();
 			String[] categoryarray=categoryName.toArray(new String[0]);
 			
-			query=this.session.createQuery(QueriesConstant.SELECT_GALLERY_FROM_PRODUCTID);
+			query=session.createQuery(QueriesConstant.SELECT_GALLERY_FROM_PRODUCTID);
 			query.setParameter("id", product.getId());
 			
 			List<String> imageUrl=query.list();
@@ -188,24 +193,29 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	public Response<List<NewProductDto>> getAllProducts() {
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
 		Response<List<NewProductDto>> response=new Response<>();
 		try {
 			
 			
 		List<NewProductDto> newProductDto =new ArrayList<>();
-		Query query = this.session.createQuery(QueriesConstant.FROMPRODUCT);
+		Query query = session.createQuery(QueriesConstant.FROMPRODUCT);
 		
 		List<Product> productList=query.list();
 		if(productList.size()>0) {
 	
 		for(Product product:productList) {
-			query=this.session.createQuery(QueriesConstant.SELECT_CATEGORY_FROM_PRODUCTID);
+			query=session.createQuery(QueriesConstant.SELECT_CATEGORY_FROM_PRODUCTID);
 			query.setParameter("id", product.getId());
 			
 			List<String> categoryName=query.list();
 			String[] categoryarray=categoryName.toArray(new String[0]);
 			
-			query=this.session.createQuery(QueriesConstant.SELECT_GALLERY_FROM_PRODUCTID);
+			query=session.createQuery(QueriesConstant.SELECT_GALLERY_FROM_PRODUCTID);
 			query.setParameter("id", product.getId());
 			
 			List<String> imageUrl=query.list();
@@ -265,10 +275,14 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public Response<NewProductDto> getProduct(int id) {
 		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
 		Response<NewProductDto> response=new Response<>();
 		
 		try {
-		Query query=this.session.createQuery(QueriesConstant.SELECT_PRODUCT_FROM_PRODUCTID);
+		Query query=session.createQuery(QueriesConstant.SELECT_PRODUCT_FROM_PRODUCTID);
 		query.setParameter("id", id);
 		
 		
@@ -276,13 +290,13 @@ public class ProductDaoImpl implements ProductDao {
 		if(!productList.isEmpty()) {
 		Product product=productList.get(0);
 		
-		query=this.session.createQuery(QueriesConstant.SELECT_CATEGORY_FROM_PRODUCTID);
+		query=session.createQuery(QueriesConstant.SELECT_CATEGORY_FROM_PRODUCTID);
 		query.setParameter("id", id);
 		
 		List<String> categoryName=query.list();
 		String[] categoryarray=categoryName.toArray(new String[0]);
 		
-		query=this.session.createQuery(QueriesConstant.SELECT_GALLERY_FROM_PRODUCTID);
+		query=session.createQuery(QueriesConstant.SELECT_GALLERY_FROM_PRODUCTID);
 		query.setParameter("id", id);
 		
 		List<String> imageUrl=query.list();
@@ -345,6 +359,10 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public Response<List<ProductStatusDto>> updateProductStatus(List<ProductStatusDto> productStatusDto) {
 
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
 		Response<List<ProductStatusDto>> response=new Response<>();
 		try {
 			
@@ -385,6 +403,9 @@ public class ProductDaoImpl implements ProductDao {
 
 	public Response updateProduct(NewProductDto newProductDto) {
 		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
 	
 		Response<String> response=new Response();
 		try {
@@ -405,6 +426,7 @@ public class ProductDaoImpl implements ProductDao {
 		product.setShortdiscription(newProductDto.getShortdiscription());
 		product.setSsp(newProductDto.getSsp());
 		product.setYmp(newProductDto.getYmp());
+		product.setStatus("REVIEW");
 		product.setUsageinstructions(newProductDto.getUsageinstructins());
 		//product.setStatus(newProductDto.getStatus());
 		product.setId(newProductDto.getId());

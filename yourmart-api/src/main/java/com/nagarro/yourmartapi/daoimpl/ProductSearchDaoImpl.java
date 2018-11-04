@@ -18,13 +18,11 @@ import com.nagarro.yourmartapi.utils.HibernateUtil;
 @Component
 public class ProductSearchDaoImpl implements ProductSearchDao{
 
-	Session session;
+	
 	
 	public ProductSearchDaoImpl() {
 
-		session = HibernateUtil.getSessionFactory().openSession();
-
-		session.beginTransaction();
+	
 
 	
 	}
@@ -32,6 +30,11 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 	
 	@Override
 	public Response<List<NewProductDto>> sortProduct(List<String> status ,String sortBy) {
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
 		Response<List<NewProductDto>> response=new Response<>();
 		String querystatement="";
 		String wherequery="";
@@ -50,7 +53,7 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 		}
 		
 		
- 		Query query = this.session.createQuery("FROM Product as p "+wherequery+querystatement);
+ 		Query query = session.createQuery("FROM Product as p "+wherequery+querystatement);
 		
 		List<NewProductDto> productList=query.list();
 			
@@ -64,14 +67,19 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 
 	@Override
 	public Response searchProduct(String companysearch, String codesearch, String productnamesearch, String productid) {
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
 		Response<List<NewProductDto>> response=new Response<>();
 		try {
 		if(!Objects.isNull(companysearch)) {
- 		Query query = this.session.createQuery("Select s.seller.id from SellerDetails as s where s.companyname Like :companyname");
+ 		Query query = session.createQuery("Select s.seller.id from SellerDetails as s where s.companyname Like :companyname");
  		query.setParameter("companyname", "%"+companysearch+"%");	
 		List<Integer> sellerid=query.list();
 		int id=sellerid.get(0);
- 		Query query1 = this.session.createQuery("from Product as p where p.seller.id =:sellerid");
+ 		Query query1 = session.createQuery("from Product as p where p.seller.id =:sellerid");
  		query1.setParameter("sellerid", id);
 		List<NewProductDto> productList=query1.list();
 		
@@ -88,7 +96,7 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 		}
 		else if(!Objects.isNull(codesearch)) {
 				//int productCode=Integer.parseInt(codesearch);
-			Query query = this.session.createQuery("from Product as p where p.productcode Like :productcode");
+			Query query = session.createQuery("from Product as p where p.productcode Like :productcode");
 	 		query.setParameter("productcode", "%"+codesearch+"%");	
 	 		List<NewProductDto> productList=query.list();
 	 		if(productList.size()==0) {
@@ -107,7 +115,7 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 		
 		else if(!Objects.isNull(productnamesearch))
 		{
-		Query query = this.session.createQuery("from Product as p where p.productname Like :productname");
+		Query query = session.createQuery("from Product as p where p.productname Like :productname");
  		query.setParameter("productname", "%"+productnamesearch+"%");	
  		List<NewProductDto> productList=query.list();
  		if(productList.size()==0) {
@@ -127,7 +135,7 @@ public class ProductSearchDaoImpl implements ProductSearchDao{
 		else if(!Objects.isNull(productid))
 		{
 			int productid1=Integer.parseInt(productid);
-		Query query = this.session.createQuery("from Product as p where p.id =:productid");
+		Query query = session.createQuery("from Product as p where p.id =:productid");
  		query.setParameter("productid", productid1);	
  		List<NewProductDto> productList=query.list();
  		if(productList.size()==0) {

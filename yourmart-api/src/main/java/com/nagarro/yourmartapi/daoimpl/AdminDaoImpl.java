@@ -19,19 +19,23 @@ import com.nagarro.yourmartapi.utils.ResponseData;
 @Component
 public class AdminDaoImpl implements AdminDao {
 
-	Session session;
+	
 
 	public AdminDaoImpl() {
-		session = HibernateUtil.getSessionFactory().openSession();
-
-		session.beginTransaction();
+	
 	}
 
 	ResponsesDto response = new ResponsesDto();
 
 	public ResponsesDto validUser(LoginDto admin) {
 
-		Query loginQuery = this.session.createQuery(QueriesConstant.SELECT_ALL_ADMINS);
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
+		
+		Query loginQuery = session.createQuery(QueriesConstant.SELECT_ALL_ADMINS);
 
 		loginQuery.setParameter("username", admin.getUsername());
 		loginQuery.setParameter("password", admin.getPassword());
