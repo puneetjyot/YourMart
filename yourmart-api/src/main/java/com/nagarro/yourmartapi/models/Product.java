@@ -56,10 +56,10 @@ public class Product {
 	private String usageinstructions;
 	
 	@Column(name = "createdat", unique = false, nullable = false, length = 1000)
-	private LocalDateTime createdat;
+	private String createdat;
 	
 	@Column(name = "updatedat", unique = false, nullable = false, length = 1000)
-	private LocalDateTime updatedat;
+	private String updatedat;
 	
 	@Column(name = "comments", unique = false, nullable = false, length = 1000)
 	private String comments;
@@ -178,19 +178,19 @@ public class Product {
 		this.usageinstructions = usageinstructions;
 	}
 
-	public LocalDateTime getCreatedat() {
+	public String getCreatedat() {
 		return createdat;
 	}
 
-	public void setCreatedat(LocalDateTime createdat) {
+	public void setCreatedat(String createdat) {
 		this.createdat = createdat;
 	}
 
-	public LocalDateTime getUpdatedat() {
+	public String getUpdatedat() {
 		return updatedat;
 	}
 
-	public void setUpdatedat(LocalDateTime updatedat) {
+	public void setUpdatedat(String updatedat) {
 		this.updatedat = updatedat;
 	}
 

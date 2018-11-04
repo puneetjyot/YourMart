@@ -34,6 +34,7 @@ public class CategoryController {
 	
 	@GetMapping("/category/product/{categoryname}")
 	public Response<List<NewProductDto>> getProductViaCategory(@PathVariable(value="categoryname")String category  ){
+		System.out.println("sdsdd");
 		return categoryService.getProductViaCategory(category);
 		
 	}

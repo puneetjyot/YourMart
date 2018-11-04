@@ -62,10 +62,12 @@ public class CateoryDaoImpl implements CategoryDao {
 		
 			
 			
-			
+	
 
 			List<NewProductDto> productViaCategories = query.list();
 
+			System.out.println(productViaCategories.size());
+			
 			response.setData(productViaCategories);
 			response.setMessage(null);
 			response.setStatus(QueriesConstant.SUCCESS);
@@ -126,16 +128,16 @@ public class CateoryDaoImpl implements CategoryDao {
 		if(id.size()>0) {
 			System.out.println(id.get(0));
 			
-//		Object object=session.load(Category.class,33);
-//		
-//		Category category=(Category) object;
-//		System.out.println(category.getCategoryname());
-//		session.delete(category);
-			
-			Query delquery=session.createQuery("delete from Category as c where c.id= :name");
-					delquery.setParameter("name", id.get(0));
-
-					delquery.list();
+		Object object=session.load(Category.class,id.get(0));
+		
+		Category category=(Category) object;
+		System.out.println(category.getCategoryname());
+		session.delete(category);
+//			
+//			Query delquery=session.createQuery("delete from Category as c where c.id= :name");
+//					delquery.setParameter("name", id.get(0));
+//
+//					delquery.list();
 		response.setData(name+"deleted");
 		response.setMessage(null);
 		response.setStatus(QueriesConstant.SUCCESS);

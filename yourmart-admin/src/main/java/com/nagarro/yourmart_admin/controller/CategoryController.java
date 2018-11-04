@@ -49,7 +49,7 @@ public class CategoryController {
     public ModelAndView getProductViaCategories(@PathVariable("name") String name){  
 		ModelAndView mav = new ModelAndView();
 		
-		
+		//System.out.println("dsfjkjfdsfdsjksdfnfsnjksfndjnsdfjkfdsjk");
 		ProductDto products=categoryService.getProduct(name);
 
 			//mav.addObject("categoryList",categories.getData());
