@@ -36,7 +36,15 @@ return this.http.post(`${this.BASEURL}product`,product)
 }
 updateproduct(product){
 
-  return this.http.put(`${this.BASEURL}singleproduct`,product);
+  return this.http.put(`${this.BASEURL}product`,product,
+  {
+    headers: {
+      'Content-Type' : 'application/json; charset=utf-8',
+      'Accept'       : 'application/json',
+      'token': `${window.localStorage.getItem("token")}`
+    }
+  }
+  );
 
 }
 getproduct(productid){

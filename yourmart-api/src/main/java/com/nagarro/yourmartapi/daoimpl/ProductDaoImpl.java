@@ -60,6 +60,7 @@ public class ProductDaoImpl implements ProductDao {
 		product.setUsageinstructions(newProductDto.getUsageinstructins());
 		product.setStatus(QueriesConstant.NEED_APPROVAL);
 		LocalDateTime currenttime=LocalDateTime.now();
+//		product.setCreatedat(currenttime);
 		
 			
 		product.setComments(newProductDto.getComments());
@@ -68,21 +69,26 @@ public class ProductDaoImpl implements ProductDao {
 
 		product.setSeller(seller);
 		
+		if(newProductDto.getCategories()!=null) {
+
 		for(String category:newProductDto.getCategories()) {
 			Category categories=new Category();
 			categories.setCategoryname(category);
 			categories.setProduct(product);
 			session.save(categories);
 		}
+		}
 		
+		if(newProductDto.getGalleryImages()!=null) {
 		for(String imageurl:newProductDto.getGalleryImages() ) {
 			Gallery galleryImage=new Gallery();
 			galleryImage.setImageurl(imageurl);
 			galleryImage.setProduct(product);
 			session.save(galleryImage);
-			
+		}
 			
 		}
+		
 		
 		if (session.save(product) != null) {
 			Response responseData = new Response();
@@ -370,6 +376,44 @@ public class ProductDaoImpl implements ProductDao {
 		
 		}
 		System.out.println(response.getMessage());
+		
+		return response;
+	}
+
+
+	public Response updateProduct(NewProductDto newProductDto) {
+		
+	
+		Response<String> response=new Response();
+		try {
+		Object object = session.load(Product.class, new Integer(""+newProductDto.getId()));
+		Product product = (Product) object;
+		//product.setCategories(newProductDto.getCategories());
+		//product.setComments(newProductDto.getComments());
+		product.setDimensions(newProductDto.getDimensions());
+		product.setLongdescription(newProductDto.getLongdiscription());
+		product.setPrimaryimage(newProductDto.getPrimaryimage());
+		//product.setGalleryImages(newProductDto.getGalleryImages());
+		product.setMrp(newProductDto.getMrp());
+		product.setProductattribute(newProductDto.getProductattributes());
+		product.setProductname(newProductDto.getProductname());
+		
+		//product.setSeller(newProductDto.getSellerId());
+		product.setProductcode(newProductDto.getSellerproductcode());
+		product.setShortdiscription(newProductDto.getShortdiscription());
+		product.setSsp(newProductDto.getSsp());
+		product.setYmp(newProductDto.getYmp());
+		product.setUsageinstructions(newProductDto.getUsageinstructins());
+		//product.setStatus(newProductDto.getStatus());
+		product.setId(newProductDto.getId());
+		//user.setPassword(resetUser.getPassword());
+		session.getTransaction().commit();
+		response.setStatus(200);
+		response.setData("Product updated");
+		}catch(Exception e) {
+			response.setStatus(400);
+			response.setMessage(e.getMessage());
+		}
 		
 		return response;
 	}

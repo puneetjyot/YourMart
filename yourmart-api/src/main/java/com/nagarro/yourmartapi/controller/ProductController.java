@@ -46,6 +46,21 @@ public class ProductController {
 		System.out.println("--------------"+id);
 		return productService.getProducts(Integer.parseInt(id));
 	}
+	@PutMapping("/product")
+	public Response updateProduct(@RequestBody NewProductDto newProductDto,@RequestHeader String token) {
+		Response response=new Response<>();
+		if(token!=null) {
+			System.out.println(token);
+		return productService.updateProduct(newProductDto);
+	}
+		else {
+			response.setData(null);
+			response.setMessage(QueriesConstant.UNAUTHENTICATED_MESSAGE);
+			response.setStatus(QueriesConstant.UNAUTHORISED_CODE);
+			return response;
+		}
+
+	}
 	
 	@GetMapping("/singleproduct/{id}")
 	public Response getProduct(@PathVariable String id) {

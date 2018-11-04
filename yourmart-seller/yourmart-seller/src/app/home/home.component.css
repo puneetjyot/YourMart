@@ -89,3 +89,10 @@ display: block;
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+    a:hover {
+        text-decoration: none;
+    }
+
+    .link {
+        font-size: 1.3rem;
+    }

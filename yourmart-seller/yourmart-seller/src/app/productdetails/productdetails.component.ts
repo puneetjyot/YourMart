@@ -18,6 +18,7 @@ export class ProductdetailsComponent implements OnInit {
   product:any;
   show:boolean;
   newproduct:any;
+  images=new Array<string>();
   categories=new Array<string>()
   productDetails = new FormGroup({
     productcode: new FormControl(''),
@@ -29,7 +30,9 @@ export class ProductdetailsComponent implements OnInit {
     mrp: new FormControl(''),
     ssp: new FormControl(''),
     ymp: new FormControl(''),
-    categorylist:new FormControl('')
+    pimage:new FormControl(''),
+    categorylist:new FormControl(''),
+    taglist:new FormControl('')
     
         
   });
@@ -52,7 +55,7 @@ export class ProductdetailsComponent implements OnInit {
       console.log(data);
       this.user=data.data;
     })
-
+    if(this.productid!=null){
     this.productService.getproduct(this.productid).subscribe((data:any)=>{
       if(data.data!=null){
       this.product=data.data;
@@ -70,18 +73,24 @@ export class ProductdetailsComponent implements OnInit {
      
      this.productDetails.controls['usageinstructins'].setValue(this.product.usageinstructins);  
     } 
-    setTimeout(()=>{     
-       this.show=true;
-    },
-    1000
-    )
+  
     });
+  }
+  else{
+    this.newproduct=true;
+  }
+  setTimeout(()=>{     
+    this.show=true;
+ },
+ 1000
+ )
   }
 
   
 
   saveProduct(){
     if(this.newproduct){
+
       this.addProduct();
     }
     else{
@@ -99,11 +108,17 @@ export class ProductdetailsComponent implements OnInit {
       mrp:this.productDetails.value.mrp,
       ssp:this.productDetails.value.ssp,
       ymp:this.productDetails.value.ymp,
-      primaryimage:this.product.primaryimage,
+      primaryimage:this.productDetails.value.pimage,
       usageinstructins:this.productDetails.value.usageinstructins,
-      sellerId:window.localStorage.getItem('sellerid'),
+      sellerId:this.user.id,
+      galleryImages:this.images
+      
       
     })
+    .subscribe((data:any)=>{
+      console.log(data)
+    })
+    console.log("ädding")
   }
 
   updateProduct(){
@@ -131,6 +146,22 @@ export class ProductdetailsComponent implements OnInit {
     })
     console.log("productcode:"+this.productDetails.value.productcode)
   }
+  addImages(image){
+    
+
+     this.images.push(image)
+     this.productDetails.controls['taglist'].setValue("");  
+
+   
+   }
+   removeImage(image){
+     
+     const index: number = this.images.indexOf(image);
+     if (index !== -1) {
+         this.images.splice(index, 1);
+     }
+   }
+ 
 }
 
 

@@ -4,10 +4,15 @@
 </div>
 <div class="bg-light" *ngIf="show">
 <div class="bg-info d-flex justify-content-between p-3 text-light">
-    <span class="font-weight-light title">YourMart</span>
-     
+    <a routerLink="/home" routerLinkActive=true> 
+  <span class="font-weight-light title text-light ">YourMart</span>
+</a>
   <div class="d-flex">
-     
+      <span class="mx-3">
+        	
+            	<span class="text-light link font-weight-light">Home</span>
+         
+        </span>
       <span class="font-weight-light welcome">Welcome {{user.ownername}}</span>
     </div>
     </div>
@@ -101,31 +106,51 @@
           
           
           
-        <div class="form-group" *ngIf="newproduct" >
+        <div class="form-group" *ngIf="!newproduct" >
             <label for="empCode">Seller Id</label>
           <input class="form-control mr-1" readonly value={{product.sellerId}}
             placeholder="SELLERID"   />
           </div>
           <br>
      
-          <div class="form-group"  *ngIf="newproduct">
+          <div class="form-group"  *ngIf="!newproduct">
               <label for="empCode">Seller Comment</label>  
           <input class="form-control" type="text" readonly value={{product.comments}}
            placeholder="Comments" name="comments">
           </div>
           <br>
   
-          <div class="form-group"  *ngIf="newproduct">
+          <div class="form-group"  *ngIf="!newproduct">
               <label for="empCode">Status</label>  
           <input class="form-control" type="text" readonly value={{product.status}}
            placeholder="Comments" name="comments">
           </div>
-          <br>
           
-          <input *ngIf="!newproduct" class="btn btn-light text-info" type="submit"
+
+          <div class="form-group">
+              <label for="empCode">Primary Image</label>
+            <input class="form-control" formControlName="pimage"
+              placeholder="Primary Image" required  />
+            </div>
+            <br>
+            <input type="text" (keydown.enter)="$event.preventDefault()" formControlName="taglist" #taglist (keydown.enter)="addImages(taglist.value)" name="taglist" class="form-control my-3 p-4" placeholder="Enter More Images">
+
+  
+  <div class="row">
+    <div class="" *ngFor="let image of images">
+    <span class="badge badge-secondary colortag mx-1">
+    <i (click)=removeImage(image) class="material-icons"></i>
+    <img src= {{image}} height="50" width=50>
+    </span>
+    </div> 
+</div>
+
+
+          
+          <input *ngIf="!newproduct" class="btn btn-info text-light mt-2" type="submit"
             value="Update Details" />
   
-            <input *ngIf="newproduct" class="btn btn-light text-info" type="submit"
+            <input *ngIf="newproduct" class="btn btn-info text-light mt-2" type="submit"
             value="Add Product" />
         
         

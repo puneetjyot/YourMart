@@ -7,7 +7,10 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { ProductdetailsComponent } from './productdetails/productdetails.component'; 
+import { ProductdetailsComponent } from './productdetails/productdetails.component';
+import { SingleproductComponent } from './singleproduct/singleproduct.component'; 
+import {SlideshowModule} from 'ng-simple-slideshow';
+
 const routes: Routes = [
 
     {
@@ -23,8 +26,17 @@ const routes: Routes = [
       component:HomeComponent
     },
     {
-      path:'product/:id',
+      path:'productedit/:id',
       component:ProductdetailsComponent
+    },
+    {
+      path:'newproduct',
+      component:ProductdetailsComponent
+    },
+    {
+      path:'product/:id',
+      component:SingleproductComponent
+
     }
 
   ]; 
@@ -34,10 +46,12 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ProductdetailsComponent
+    ProductdetailsComponent,
+    SingleproductComponent
   ],
   imports: [
     BrowserModule,
+    SlideshowModule,
     RouterModule.forRoot(routes, {
       onSameUrlNavigation: 'reload'
       }) ,

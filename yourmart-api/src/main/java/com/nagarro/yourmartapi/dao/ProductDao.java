@@ -18,4 +18,6 @@ public interface ProductDao {
 
 	Response getAllProducts();
 
+	Response updateProduct(NewProductDto newProductDto);
+
 }

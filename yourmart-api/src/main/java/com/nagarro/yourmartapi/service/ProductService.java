@@ -19,5 +19,7 @@ public interface ProductService {
 
 	Response getAllProduct();
 
+	Response updateProduct(NewProductDto newProductDto);
+
 
 }
