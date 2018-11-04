@@ -1,21 +1,40 @@
+<div class="d-flex justify-content-center w-100 font p-5" >
+    <span>Register Here</span>
+    </div>
+    <div class="d-flex justify-content-center">
+        <ul *ngIf="errorarr.length != 0">
+            <li style="color: red" *ngFor="let error of errorarr">
+              {{ error }}
+            </li>
+          </ul>
+    </div>
 
-<form [formGroup]="registerform" (ngSubmit)="registerSeller()" class="form-inline d-flex justify-content-center">
-    <input formControlName="username" class="form-control m-2" placeholder="username" type="text">
-    
-
-    <input formControlName="password" class="form-control m-2" placeholder="password" type="password">
-    <input formControlName="confirmpassword" class="form-control m-2" placeholder="confirmpassword" type="password">
-    <input formControlName="companyname" class="form-control m-2" placeholder="companyname" type="text">
-
-    <input formControlName="ownername" class="form-control m-2" placeholder="ownername" type="text">
-
-    <input formControlName="address" class="form-control m-2" placeholder="address" type="text">
-
-    <input formControlName="email" class="form-control m-2" placeholder="email" type="email">
-    <input formControlName="telephone" class="form-control m-2" placeholder="telephone" type="number">
-
-    <input formControlName="gstnumber" class="form-control m-2" placeholder="gstnumber" type="text">
-
-
-      <button type="submit" class="btn btn-outline-light m-2" >Register</button>
+  <div class="h-100">
+      <form [formGroup]="registerform" (ngSubmit)="registerSeller()" class="d-flex flex-column">
+        <div class="row h-100">
+          <div class="col-sm-6 h-100 mt-5 ">
+            <div *ngIf="error!=null">
+              {{error}}
+            </div>
+            <input type="text" formControlName="username" placeholder="Username" required autocomplete="off" class="my-2 form-control w-50">
+            <input type="password" formControlName="password" placeholder="Password" required autocomplete="off" class="my-2 form-control w-50">
+            <input type="password" formControlName="confirmpassword" placeholder="Confirm Password" required autocomplete="off" class="my-2 form-control w-50">
+            <input type="submit" value="Register" [disabled]="!registerform.valid" class="my-2 btn btn-success w-50">
+            <div>
+              <a routerLink="/" class="btn">
+                Already have an account?
+              </a>
+            </div>
+          </div>
+          <div class="col-sm-6 form">
+            <input type="text" formControlName="companyname" placeholder="Company Name" required autocomplete="off" class="my-2 form-control w-50">
+            <input type="text" formControlName="ownername" placeholder="Owner Name" required autocomplete="off" class="my-2 form-control w-50">
+            <input type="text" formControlName="address" placeholder="Address" required autocomplete="off" class="my-2 form-control w-50">
+            <input type="text" formControlName="email" placeholder="Email" required autocomplete="off" class="my-2 form-control w-50">
+            <input type="text" formControlName="gstnumber" placeholder="GST Number" required autocomplete="off" class="my-2 form-control w-50">
+            <input type="text" formControlName="telephone" placeholder="Telephone" required autocomplete="off" class="my-2 form-control w-50">
+          </div>
+        </div>
       </form>
+    </div>
+    

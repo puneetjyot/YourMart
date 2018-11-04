@@ -16,6 +16,16 @@ public class SellerDetailsDto {
 	public String status;
 	
 	public String id;
+	
+	public String createdAt;
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
 
 	public String getId() {
 		return id;

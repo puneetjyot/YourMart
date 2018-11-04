@@ -1,114 +1,115 @@
 <div *ngIf="!isLoaded" class=" d-flex justify-content-center">
-    <div class="loader"></div>
+  <div class="loader"></div>
 
 </div>
 <div class="bg-light" *ngIf="isLoaded">
-<div class="bg-info d-flex justify-content-between p-3 text-light">
+  <div class="bg-info d-flex justify-content-between p-3 text-light">
     <span class="font-weight-light title">YourMart</span>
-      <div class="d-flex">           
-        <div>
-            <form [formGroup]="searchproducts" (ngSubmit)="search()" class="form-inline">
-         <div class="dropdown">
-      <button class="btn-info" style="height: 40px">
-      <i class="fas fa-search p-2"></i>
-      </button>
-      <div class="dropdown-content">
-        <div class="text-dark p-2">
-              <input type="radio" formControlName="search" value="sellerid"> Seller Id<br>
-              <input type="radio" formControlName="search" value="companyname"> Company Name<br>
-               <input type="radio" formControlName="search" value="productcode"> Product Code<br>
-               <input type="radio" formControlName="search" value="productname"> Product Name<br>
-               <input type="radio" formControlName="search" value="id"> product id
+    <div class="d-flex">
+      <div>
+        <form [formGroup]="searchproducts" (ngSubmit)="search()" class="form-inline">
+          <div class="dropdown">
+            <button class="btn-info" style="height: 40px">
+              <i class="fas fa-search p-2"></i>
+            </button>
+            <div class="dropdown-content">
+              <div class="text-dark p-2">
+                <input type="radio" formControlName="search" value="sellerid"> Seller Id<br>
+                <input type="radio" formControlName="search" value="companyname"> Company Name<br>
+                <input type="radio" formControlName="search" value="productcode"> Product Code<br>
+                <input type="radio" formControlName="search" value="productname"> Product Name<br>
+                <input type="radio" formControlName="search" value="id"> product id
+              </div>
             </div>
-      </div>
-    </div>
-        
-        
-              <input type="text" class="form-control" formControlName="searchtext"/> 
-               <input type="submit" class="btn fas-fa-search" value="Search"/>
-             </form>
           </div>
-          
-         
-  </div>
-  <div class="d-flex">
+
+
+          <input type="text" class="form-control" formControlName="searchtext" />
+          <input type="submit" class="btn fas-fa-search" value="Search" />
+        </form>
+      </div>
+
+
+    </div>
+    <div class="d-flex">
       <span class="mx-3">
-        	<a routerLink="/newproduct" routerLinkActive=true>
-            	<span class="text-light link font-weight-light">Add Products</span>
-          </a>
-        </span>
+        <a routerLink="/newproduct" routerLinkActive=true>
+          <span class="text-light link font-weight-light">Add Products</span>
+        </a>
+      </span>
       <span class="font-weight-light welcome">Welcome {{user.ownername}}</span>
     </div>
-</div>
+  </div>
   <div class="container py-4">
-           <div class="row">
-                  <div class="col-sm-3 px-5 filters">
-                        <div class="">
-                               <form [formGroup]="sortform" (ngSubmit)="sortAndFilter()">
-                                     <div class="mt-4 mb-2 form-label text-info text-sm-center">Sort By</div>
-                                     <input type="radio" formControlName="sortBy" value="mrp"> Mrp<br>
-                                     <input type="radio" formControlName="sortBy" value="ssp"> Ssp<br>
-                                      <input type="radio" formControlName="sortBy" value="ymp"> Ymp<br>
-                                     <input type="radio" formControlName="sortBy" value="productcode"> Product code<br>
-                                     <input type="radio" formControlName="sortBy" value="productname"> Product name<br>
+    <div class="row">
+      <div class="col-sm-3 px-5 filters">
+        <div class="">
+          <form [formGroup]="sortform" (ngSubmit)="sortAndFilter()">
+            <div class="mt-4 mb-2 form-label text-info text-sm-center">Sort By</div>
+            <input type="radio" formControlName="sortBy" value="mrp"> Mrp<br>
+            <input type="radio" formControlName="sortBy" value="ssp"> Ssp<br>
+            <input type="radio" formControlName="sortBy" value="ymp"> Ymp<br>
+            <input type="radio" formControlName="sortBy" value="productcode"> Product code<br>
+            <input type="radio" formControlName="sortBy" value="productname"> Product name<br>
 
-                                     <div class="mt-4 mb-2 form-label text-info text-sm-center">Filter By</div>
-                                     <input type="checkbox" formControlName="new" value="NEW" id="1"> New<br>
-                                     <input type="checkbox" formControlName="approved" value="APPROVED"> Approved<br>
-                                     <input type="checkbox" formControlName="rejected" value="REJECTED"> Rejected<br>
-                                     <input type="checkbox" formControlName="review" value="REVIEW"> Review<br>
-                                     
-                                     
-                                            <input type="submit" value="Apply" class="mt-4 btn btn-info w-100">
-                                     
-                               </form>
-                        </div>
+            <div class="mt-4 mb-2 form-label text-info text-sm-center">Filter By</div>
+            <input type="checkbox" formControlName="new" value="NEW" id="1"> New<br>
+            <input type="checkbox" formControlName="approved" value="APPROVED"> Approved<br>
+            <input type="checkbox" formControlName="rejected" value="REJECTED"> Rejected<br>
+            <input type="checkbox" formControlName="review" value="REVIEW"> Review<br>
+
+
+            <input type="submit" value="Apply" class="mt-4 btn btn-info w-100">
+
+          </form>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="list-title font-weight-light">Products</div>
+        <div infiniteScroll (scrolled)="onScroll()">
+          <div *ngFor="let product of products.data">
+
+
+            <div class="row d-flex justify-content-center">
+
+              <div class="col-sm-4 m-2">
+                <div class="card">
+                  <a routerLink="/product/{{product.id}}">
+                    <img class="card-img-top image" src={{product.primaryimage}} alt="Card image cap">
+                    <h4 class="px-3">"{{product.shortdiscription}}"</h4>
+                  </a>
+                  <div class="card-body">
+                    <h6 class="text-secondary">{{product.sellerproductcode}}"</h6>
+                    <h5 class="text-secondary">MRP rs.{{product.mrp}}</h5>
+                    <h6 class="text-secondary">{{product.shortdiscription}}</h6>
+                    <div>
+                      <div *ngIf test="product.status=='NEW'">
+                        <input type="checkbox" name="check" value="{{product.id}}">
+                      </div>
+                      <div *ngIf test="!product.status=='NEW'">
+                        <input type="checkbox" name="check" value="" style="visibility: hidden" disabled>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-sm-8">
-                        <div class="list-title font-weight-light">Products</div>
-                       
-                        <div *ngFor="let product of products.data">
+                </div>
+              </div>
 
-                          
-                           <div class="row d-flex justify-content-center">
-                                   
-                                        <div class="col-sm-4 m-2">
-                                            <div class="card">
-                                              <a routerLink="/product/{{product.id}}">
-                                    <img class="card-img-top image"  src={{product.primaryimage}} alt="Card image cap">
-                                    <h4 class="px-3">"{{product.shortdiscription}}"</h4> 
-                                   </a>
-                                   <div class="card-body">
-                                    <h6 class="text-secondary">{{product.sellerproductcode}}"</h6>
-                                    <h5 class="text-secondary">MRP rs.{{product.mrp}}</h5>
-                                    <h6 class="text-secondary">{{product.shortdiscription}}</h6>
-                                  <div>
-                                                        <div *ngIf test="product.status=='NEW'">
-                                      <input type="checkbox" name="check" value="{{product.id}}">
-                                    </div>
-                                    <div *ngIf test="!product.status=='NEW'">
-                                      <input type="checkbox" name="check" value="" style="visibility: hidden" disabled>
-                                    </div> 
-                                 </div>
-                                  </div>
-                              </div>
-                            </div>
-                       
-                        </div>
-                        
-                      
+            </div>
 
 
 
-                        </div>
+
+
+          </div>
+        </div>
 
 
 
-                        <div>
-                       
-                             
-                        </div>
-                  </div>
-           </div> 
-     </div>
+        <div>
+
+
+        </div>
+      </div>
     </div>
+  </div>
+</div>

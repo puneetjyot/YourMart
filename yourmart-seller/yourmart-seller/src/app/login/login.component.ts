@@ -22,6 +22,10 @@ export class LoginComponent implements OnInit {
   }
 
   authenticateSeller(){
+    //@ts-ignore
+  if(grecaptcha.getResponse()==""){
+   return false; 
+  }
     this.authservice.authenticateUser({
       username:this.loginform.value.username,
       password:this.loginform.value.password

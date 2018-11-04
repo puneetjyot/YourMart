@@ -11,7 +11,7 @@ public interface ProductService {
 
 	Response<String> addProduct(NewProductDto product);
 
-	Response getProducts(int id);
+	Response getProducts(int id, int offset);
 
 	Response getProduct(int id);
 

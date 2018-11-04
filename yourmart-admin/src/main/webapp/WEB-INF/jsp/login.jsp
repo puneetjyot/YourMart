@@ -95,7 +95,7 @@
                                  <form action="filter">
                                        <div class="mt-4 mb-2 form-label text-info text-sm-center">Sort By</div>
                                        <input type="radio" name="sortBy" value="id"> Seller Id<br>
-                                       <input type="radio" name="sortBy" value="createdAt"> Registration time<br>
+                                       <input type="radio" name="sortBy" value="createdat"> Registration time<br>
                                        <div class="mt-4 mb-2 form-label text-info text-sm-center">Filter By</div>
                                        <input type="checkbox" name="status" value="NEED_APPROVAL"> Need_Approval<br>
                                        <input type="checkbox" name="status" value="APPROVED"> Approved<br>
@@ -125,7 +125,7 @@
                                                             </div>
                                                     <div class="col-sm-4 d-flex flex-column">
                                                            <span><c:out value="${seller.ownername}" /></span>
-                                                           <span class="text-secondary small-label">Registered 5 days ago</span>
+                                                           <span class="text-secondary small-label">created at: ${seller.createdAt}</span>
                                                     </div>
                                                     <div class="col-sm-2 text-sm-center">
                                                     <span class="text-secondary"><c:out value="${seller.id}" /></span>

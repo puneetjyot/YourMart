@@ -26,8 +26,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Response getProducts(int id) {
-		return productDao.getProducts(id);
+	public Response getProducts(int id,int offset) {
+		return productDao.getProducts(id,offset);
 	}
 
 	@Override

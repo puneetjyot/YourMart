@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,11 +43,11 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/{id}")
-	public Response getProductList(@PathVariable String id)
+	public Response getProductList(@PathVariable String id,@RequestParam(value="offset")int offset)
 	{
 		
 		System.out.println("--------------"+id);
-		return productService.getProducts(Integer.parseInt(id));
+		return productService.getProducts(Integer.parseInt(id),offset);
 	}
 	@PutMapping("/product")
 	public Response updateProduct(@RequestBody NewProductDto newProductDto,@RequestHeader String token) {

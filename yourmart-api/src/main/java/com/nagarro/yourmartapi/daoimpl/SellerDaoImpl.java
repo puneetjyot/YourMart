@@ -196,7 +196,7 @@ public class SellerDaoImpl implements SellerDao {
 			sellerDetailsDto.setTelephone(seller.getTelephone());
 			sellerDetailsDto.setStatus(seller.getSeller().getSellerstatus());
 			sellerDetailsDto.setId(seller.getSeller().getId());
-			
+			sellerDetailsDto.setCreatedAt(seller.getCreatedat());
 			
 			allSellers.add(sellerDetailsDto);
 		}
@@ -341,7 +341,13 @@ public class SellerDaoImpl implements SellerDao {
         
         if(!Objects.isNull(sortBy)) {
                //whereClause = " WHERE sellerDetails.seller.sellerstatus = '" + status + "'";
+        	if(!sortBy.equals("createdat")) {
         	sortOrder = " ORDER BY sellerDetails.seller."+sortBy;
+        	}
+        	else {
+            	sortOrder = " ORDER BY sellerDetails."+sortBy;
+
+        	}
         } 
        
         if(!Objects.isNull(status)) {
@@ -362,6 +368,9 @@ public class SellerDaoImpl implements SellerDao {
         
         Query query = session.createQuery(QueriesConstant.SELECT_SELLERDETAILS_FROM_TABLE + whereClause + sortOrder);
         
+        
+        
+        
         System.out.println(query.getQueryString());
         
         List<SellerDetails> sellerList = query.list();
@@ -378,6 +387,7 @@ public class SellerDaoImpl implements SellerDao {
 			sellerDetailsDto.setOwnername(seller.getOwnername());
 			sellerDetailsDto.setStatus(seller.getSeller().getSellerstatus());
 			sellerDetailsDto.setId(seller.getSeller().getId());
+			sellerDetailsDto.setCreatedAt(seller.getCreatedat());
 
 			sellerDetailsDto.setTelephone(seller.getTelephone());
 			sellerDetailsList.add(sellerDetailsDto);
@@ -447,6 +457,7 @@ public class SellerDaoImpl implements SellerDao {
 				sellerDetailsDto.setOwnername(seller.getOwnername());
 				sellerDetailsDto.setStatus(seller.getSeller().getSellerstatus());
 				sellerDetailsDto.setId(seller.getSeller().getId());
+				sellerDetailsDto.setCreatedAt(seller.getCreatedat());
 
 				sellerDetailsDto.setTelephone(seller.getTelephone());
 				sellerDetailsList.add(sellerDetailsDto);

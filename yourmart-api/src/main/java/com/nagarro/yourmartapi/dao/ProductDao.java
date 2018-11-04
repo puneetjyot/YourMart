@@ -10,7 +10,7 @@ public interface ProductDao {
 
 	Response<String> addProduct(NewProductDto product);
 
-	Response<List<NewProductDto>> getProducts(int id);
+	Response<List<NewProductDto>> getProducts(int id, int offset);
 
 	Response<NewProductDto> getProduct(int id);
 

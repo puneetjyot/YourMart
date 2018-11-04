@@ -10,9 +10,9 @@ constructor(private http:HttpClient){
 this.BASEURL='http://localhost:8090/';
 }
 
-getProductList(id){
+getProductList(id,offset){
 
-  return this.http.get(`${this.BASEURL}products/${id}`);
+  return this.http.get(`${this.BASEURL}products/${id}?offset=${offset}`);
 
 
 }

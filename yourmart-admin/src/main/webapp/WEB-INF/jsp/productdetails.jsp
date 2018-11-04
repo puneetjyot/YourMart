@@ -57,6 +57,14 @@
    
    </div>
 </div>
+<h5 class="font-weight-light mt-4">Gallery</h5>
+                       <div class="d-flex my-4 mb-4 flex-wrap">
+                             
+                              <c:forEach var="image" items="${product.galleryImages}">
+                                 <img src="${image}" height=70 width=70 class="rounded mx-2">
+                              </c:forEach>
+                       </div>
+
 </div>
 <div class="col-sm-6">
           <div class="d-flex justify-content-between">

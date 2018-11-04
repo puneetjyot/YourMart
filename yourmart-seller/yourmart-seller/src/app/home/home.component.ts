@@ -12,6 +12,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
 user:any;
+count:number=0;
+
 products:productdto;
 isLoaded:boolean;
 filter:String[];
@@ -30,15 +32,14 @@ searchproducts=new FormGroup({
 });
 
   constructor(private dataService :DatatransferService,private productService:ProductService,private authService:AuthService) { 
-
+    this.products = {
+      data: [],
+      status: 0,
+      message: null
+    }
     this.isLoaded=false;
 
-    this.products={
-      status:null,
-      data:null,
-      message:null,
-
-    }
+    
 
     this.filter = [];
     
@@ -51,26 +52,30 @@ searchproducts=new FormGroup({
     .subscribe((data:sellerdto)=>{
       console.log(data);
       this.user=data.data;
-
-      this.productService.getProductList(this.user.id)
-    .subscribe((data:productdto)=>{
-      this.products=data;
-      console.log(data);
       setTimeout(()=>{
         this.isLoaded=true;
       },1000)
-      
-    })
-    },err => {
-      console.log(err)
-    })
 
-   
-    
+     
 
-    
-   
-  }
+
+})
+}
+onScroll(){
+  this.count+=1
+  if(this.count<=3){
+this.productService.getProductList(this.user.id,this.count)
+.subscribe((data:productdto)=>{
+this.products.data=[...this.products.data,...data.data];
+console.log(data);
+
+
+}
+,err => {
+console.log(err)
+})
+}
+}
    sortAndFilter(){
      console.log(this.sortform.value.sortBy)
     this.query="?"
@@ -133,8 +138,9 @@ searchproducts=new FormGroup({
       }
      }
      console.log(this.filter);
+     if(this.filter.length>0){
      this.query = this.query.substring(0, this.query.length - 1); // "12345.0"
-
+     }
      console.log(this.query);
     this.filter=[];
      this.productService.sortAndFilter(this.query)

@@ -37,16 +37,16 @@ isLoaded:boolean=false;
       this.product=data.data;
       console.log(this.product)
       this.isLoaded=true;
-
+      this.authService.currentUser()
+      .subscribe((data:sellerdto)=>{
+        console.log(data);
+        this.user=data.data;
+     
+      })
       }
     });
 
-    this.authService.currentUser()
-    .subscribe((data:sellerdto)=>{
-      console.log(data);
-      this.user=data.data;
    
-    })
   }
   
 

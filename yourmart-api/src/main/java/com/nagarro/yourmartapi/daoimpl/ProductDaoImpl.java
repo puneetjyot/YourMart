@@ -115,7 +115,7 @@ public class ProductDaoImpl implements ProductDao {
 
 
 	@Override
-	public Response<List<NewProductDto>> getProducts(int id) {
+	public Response<List<NewProductDto>> getProducts(int id,int offset) {
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -126,7 +126,8 @@ public class ProductDaoImpl implements ProductDao {
 		List<NewProductDto> newProductDto =new ArrayList<>();
 		Query query = session.createQuery(QueriesConstant.SELECT_PRODUCT_FROM_SELLERID);
 		query.setParameter("id",id);
-		
+		query.setFirstResult(offset);
+		query.setMaxResults(3);
 		List<Product> productList=query.list();
 		if(productList.size()>0) {
 	

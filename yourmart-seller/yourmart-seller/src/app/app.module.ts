@@ -11,6 +11,9 @@ import { ProductdetailsComponent } from './productdetails/productdetails.compone
 import { SingleproductComponent } from './singleproduct/singleproduct.component'; 
 import {SlideshowModule} from 'ng-simple-slideshow';
 import { TitlebarComponent } from './titlebar/titlebar.component';
+import { AuthGuard } from './auth.guard';
+import { InfiniteScrollModule} from 'ngx-infinite-scroll';
+
 
 const routes: Routes = [
 
@@ -20,22 +23,27 @@ const routes: Routes = [
     },
     {
       path:'register',
+      canActivate:[AuthGuard],
       component:RegisterComponent
     },
     {
       path:'home',
-      component:HomeComponent
+      canActivate:[AuthGuard],
+       component:HomeComponent
     },
     {
       path:'productedit/:id',
+      canActivate:[AuthGuard],
       component:ProductdetailsComponent
     },
     {
       path:'newproduct',
+      canActivate:[AuthGuard],
       component:ProductdetailsComponent
     },
     {
       path:'product/:id',
+      canActivate:[AuthGuard],
       component:SingleproductComponent
 
     }
@@ -54,6 +62,8 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     SlideshowModule,
+    InfiniteScrollModule,
+
     RouterModule.forRoot(routes, {
       onSameUrlNavigation: 'reload'
       }) ,

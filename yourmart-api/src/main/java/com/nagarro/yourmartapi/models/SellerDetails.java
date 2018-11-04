@@ -43,9 +43,19 @@ public class SellerDetails {
 	@Column(name = "gstnumber", unique = false, nullable = false, length = 1000)
 	private String gstnumber;
 
+	@Column(name = "createdat", unique = false, nullable = false, length = 1000)
+	private String createdat;
 	
 	
 	
+	public String getCreatedat() {
+		return createdat;
+	}
+
+	public void setCreatedat(String createdat) {
+		this.createdat = createdat;
+	}
+
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="sellerid")
 	private Seller seller;
