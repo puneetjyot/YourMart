@@ -25,19 +25,21 @@ import com.nagarro.yourmartapi.utils.ValidStatus;
 @Component
 public class SellerDaoImpl implements SellerDao {
 
-	Session session;
 	ResponsesDto response;
 
 	SellerDaoImpl() {
-		session = HibernateUtil.getSessionFactory().openSession();
-
-		session.beginTransaction();
+		
 		response = new ResponsesDto();
 
 	}
 
 	@Override
 	public ResponsesDto registerUser(SellerRegistrationDto sellerRegistrationDto) {
+	
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
 		Seller seller = new Seller();
 		SellerDetails sellerDetails = new SellerDetails();
 		seller.setSellername(sellerRegistrationDto.getUsername());
@@ -78,7 +80,12 @@ public class SellerDaoImpl implements SellerDao {
 	}
 
 	public ResponsesDto loginSeller(LoginDto loginDto) {
-		Query loginQuery = this.session.createQuery(QueriesConstant.LOGIN_SELLER);
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
+		Query loginQuery =session.createQuery(QueriesConstant.LOGIN_SELLER);
 
 		loginQuery.setParameter("username", loginDto.getUsername());
 		loginQuery.setParameter("password", loginDto.getPassword());
@@ -125,6 +132,9 @@ public class SellerDaoImpl implements SellerDao {
 	public Response<List<SellerStatusDto>> updateSellerStatus(List<SellerStatusDto> sellerStatusDto) {
 		Response<List<SellerStatusDto>> response=new Response<>();
 
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
 		
 		try {
 			List<SellerStatusDto> list=new ArrayList<>();
@@ -164,6 +174,12 @@ public class SellerDaoImpl implements SellerDao {
 		Response<List<SellerDetailsDto>> response=new Response<>();
 
 		//Query listQuery = this.session.createQuery(QueriesConstant.SELECT_LIST);
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
+		
 		try {
 		Query listQuery = session.createQuery("from SellerDetails as s ORDER BY FIELD(s.seller.sellerstatus, 'NEED_APPROVAL','APPROVED','REJECTED')");
 
@@ -206,6 +222,10 @@ public class SellerDaoImpl implements SellerDao {
 
 	@Override
 	public Response<SellerDetailsDto> getSeller(String id) {
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
 
 		Response<SellerDetailsDto> response=new Response<>();
 		
@@ -251,6 +271,12 @@ public class SellerDaoImpl implements SellerDao {
 //		
 //		Seller seller=(Seller) object;
 //		seller.setSellerstatus(sellerStatusDto.getStatus());
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
+		
 		Response response=new Response();
 		try {
 			Query listQuery = session.createQuery("from SellerDetails as s where s.seller.id=:id" );
@@ -299,6 +325,10 @@ public class SellerDaoImpl implements SellerDao {
 	public Response<List<SellerDetailsDto>> filterSeller(List<String> status,String sortBy)  {
 		Response<List<SellerDetailsDto>> response=new Response<>();
 
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
 		List<SellerDetailsDto> sellerDetailsList=new ArrayList<>();
 
 		try {
@@ -328,7 +358,7 @@ public class SellerDaoImpl implements SellerDao {
         	whereClause += ")";
         }
         
-        Query query = this.session.createQuery(QueriesConstant.SELECT_SELLERDETAILS_FROM_TABLE + whereClause + sortOrder);
+        Query query = session.createQuery(QueriesConstant.SELECT_SELLERDETAILS_FROM_TABLE + whereClause + sortOrder);
         
         System.out.println(query.getQueryString());
         
@@ -370,6 +400,11 @@ public class SellerDaoImpl implements SellerDao {
 	public Response<List<SellerDetailsDto>> seachSeller(String ownersearch, String companysearch, String mobilenumber) {
 		Response<List<SellerDetailsDto>> response=new Response<>();
 
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
+		
 		List<SellerDetailsDto> sellerDetailsList=new ArrayList<>();
 
 		String query="";
@@ -384,7 +419,7 @@ public class SellerDaoImpl implements SellerDao {
 		}
 		
 		
-		 Query listquery = this.session.createQuery(QueriesConstant.SELECT_SELLERDETAILS_FROM_TABLE + query);
+		 Query listquery = session.createQuery(QueriesConstant.SELECT_SELLERDETAILS_FROM_TABLE + query);
 		if(ownersearch!=null){
 		 listquery.setParameter("ownername", "%"+ownersearch+"%");
 		}

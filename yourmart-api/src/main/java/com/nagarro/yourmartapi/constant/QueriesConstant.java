@@ -36,7 +36,12 @@ public class QueriesConstant {
 	public static final String SELECT_SELLERDETAILS_FROM_TABLE = "from "+SELLERDETAILTABLE+" as sellerDetails";
 
 	public static final String NOPRODUCTFOUND = "NO PRODUCT FOUND";
-	
-
+		
+	public static final String FROMPRODUCT="FROM Product";
+	public static final String SELECT_CATEGORY_FROM_PRODUCTID="Select categories.categoryname From Category as categories where categories.product.id=:id";
+	public static final String SELECT_GALLERY_FROM_PRODUCTID="Select gallery.imageurl From Gallery as gallery where gallery.product.id=:id";
+	public static final String SELECT_PRODUCT_FROM_PRODUCTID="from Product as product where product.id=:id";
+	public static final String SELECT_PRODUCT_FROM_SELLERID="FROM Product where sellerid=:id";
+	public static final String SELECT_DISTINCT_CATEGORY="SELECT DISTINCT categoryname FROM Category ";
 
 }

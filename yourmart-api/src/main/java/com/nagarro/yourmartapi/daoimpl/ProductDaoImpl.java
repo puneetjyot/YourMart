@@ -119,20 +119,20 @@ public class ProductDaoImpl implements ProductDao {
 		Response<List<NewProductDto>> response=new Response<>();
 		try {
 		List<NewProductDto> newProductDto =new ArrayList<>();
-		Query query = this.session.createQuery("FROM Product where sellerid=:id");
+		Query query = this.session.createQuery(QueriesConstant.SELECT_PRODUCT_FROM_SELLERID);
 		query.setParameter("id",id);
 		
 		List<Product> productList=query.list();
 		if(productList.size()>0) {
 	
 		for(Product product:productList) {
-			query=this.session.createQuery("Select categories.categoryname From Category as categories where categories.product.id=:id");
+			query=this.session.createQuery(QueriesConstant.SELECT_CATEGORY_FROM_PRODUCTID);
 			query.setParameter("id", product.getId());
 			
 			List<String> categoryName=query.list();
 			String[] categoryarray=categoryName.toArray(new String[0]);
 			
-			query=this.session.createQuery("Select gallery.imageurl From Gallery as gallery where gallery.product.id=:id");
+			query=this.session.createQuery(QueriesConstant.SELECT_GALLERY_FROM_PRODUCTID);
 			query.setParameter("id", product.getId());
 			
 			List<String> imageUrl=query.list();
@@ -190,20 +190,22 @@ public class ProductDaoImpl implements ProductDao {
 	public Response<List<NewProductDto>> getAllProducts() {
 		Response<List<NewProductDto>> response=new Response<>();
 		try {
+			
+			
 		List<NewProductDto> newProductDto =new ArrayList<>();
-		Query query = this.session.createQuery("FROM Product");
+		Query query = this.session.createQuery(QueriesConstant.FROMPRODUCT);
 		
 		List<Product> productList=query.list();
 		if(productList.size()>0) {
 	
 		for(Product product:productList) {
-			query=this.session.createQuery("Select categories.categoryname From Category as categories where categories.product.id=:id");
+			query=this.session.createQuery(QueriesConstant.SELECT_CATEGORY_FROM_PRODUCTID);
 			query.setParameter("id", product.getId());
 			
 			List<String> categoryName=query.list();
 			String[] categoryarray=categoryName.toArray(new String[0]);
 			
-			query=this.session.createQuery("Select gallery.imageurl From Gallery as gallery where gallery.product.id=:id");
+			query=this.session.createQuery(QueriesConstant.SELECT_GALLERY_FROM_PRODUCTID);
 			query.setParameter("id", product.getId());
 			
 			List<String> imageUrl=query.list();
@@ -266,7 +268,7 @@ public class ProductDaoImpl implements ProductDao {
 		Response<NewProductDto> response=new Response<>();
 		
 		try {
-		Query query=this.session.createQuery("from Product as product where product.id=:id");
+		Query query=this.session.createQuery(QueriesConstant.SELECT_PRODUCT_FROM_PRODUCTID);
 		query.setParameter("id", id);
 		
 		
@@ -274,13 +276,13 @@ public class ProductDaoImpl implements ProductDao {
 		if(!productList.isEmpty()) {
 		Product product=productList.get(0);
 		
-		query=this.session.createQuery("Select categories.categoryname From Category as categories where categories.product.id=:id");
+		query=this.session.createQuery(QueriesConstant.SELECT_CATEGORY_FROM_PRODUCTID);
 		query.setParameter("id", id);
 		
 		List<String> categoryName=query.list();
 		String[] categoryarray=categoryName.toArray(new String[0]);
 		
-		query=this.session.createQuery("Select gallery.imageurl From Gallery as gallery where gallery.product.id=:id");
+		query=this.session.createQuery(QueriesConstant.SELECT_GALLERY_FROM_PRODUCTID);
 		query.setParameter("id", id);
 		
 		List<String> imageUrl=query.list();

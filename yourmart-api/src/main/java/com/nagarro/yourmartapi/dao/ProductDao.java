@@ -16,7 +16,7 @@ public interface ProductDao {
 
 	Response updateProductStatus(List<ProductStatusDto> productStatusDto);
 
-	Response getAllProducts();
+	Response<List<NewProductDto>> getAllProducts();
 
 	Response updateProduct(NewProductDto newProductDto);
 

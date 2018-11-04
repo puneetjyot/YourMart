@@ -36,13 +36,15 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products")
-	public Response getAllProducts() {
+	public Response<List<NewProductDto>> getAllProducts() {
+		
 		return productService.getAllProduct();
 	}
 	
 	@GetMapping("/products/{id}")
 	public Response getProductList(@PathVariable String id)
 	{
+		
 		System.out.println("--------------"+id);
 		return productService.getProducts(Integer.parseInt(id));
 	}

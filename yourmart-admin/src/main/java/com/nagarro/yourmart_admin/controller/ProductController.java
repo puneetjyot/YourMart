@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,8 +33,9 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
-	@RequestMapping(value="/products" ,method=RequestMethod.GET)
+	@RequestMapping(value= {"/products"} ,method=RequestMethod.GET)
 	public ModelAndView getAllProducts(HttpServletRequest request) {
+		
 		
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("products");

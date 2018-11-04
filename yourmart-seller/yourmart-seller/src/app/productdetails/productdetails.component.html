@@ -4,6 +4,7 @@
 </div>
 <div class="bg-light" *ngIf="show">
 <div class="bg-info d-flex justify-content-between p-3 text-light">
+ 
     <a routerLink="/home" routerLinkActive=true> 
   <span class="font-weight-light title text-light ">YourMart</span>
 </a>
@@ -28,7 +29,10 @@
         <div class="col-sm-4"></div>
         <div class="col-sm-4 d-flex justify-content-between">
           <div class="my-5 w-100">
-    
+              <div *ngIf="updatestatus==200">
+                  <h2> {{updatemessage}} </h2>
+              </div>
+              <br/>
     
         <div class="form-group">
             <label for="empCode">Seller Product Code</label>

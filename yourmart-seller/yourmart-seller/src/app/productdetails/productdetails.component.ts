@@ -15,9 +15,11 @@ import { sellerdto } from '../models/sellerdto';
 export class ProductdetailsComponent implements OnInit {
   productid:any;
    user:any;
+   updatestatus=500;
   product:any;
   show:boolean;
   newproduct:any;
+  updatemessage:any;
   images=new Array<string>();
   categories=new Array<string>()
   productDetails = new FormGroup({
@@ -70,7 +72,10 @@ export class ProductdetailsComponent implements OnInit {
       this.productDetails.controls['ssp'].setValue(this.product.ssp);
       this.productDetails.controls['ymp'].setValue(this.product.ymp);
       this.productDetails.controls['categorylist'].setValue(this.product.categories);
-     
+      this.productDetails.controls['pimage'].setValue(this.product.primaryimage);
+      this.productDetails.controls['taglist'].setValue(this.product.galleryImages);
+
+
      this.productDetails.controls['usageinstructins'].setValue(this.product.usageinstructins);  
     } 
   
@@ -143,6 +148,10 @@ export class ProductdetailsComponent implements OnInit {
 
     }).subscribe((data:any)=>{
       console.log(data)
+      this.updatemessage=data.data;
+      console.log(this.updatemessage)
+      this.updatestatus=data.status
+      
     })
     console.log("productcode:"+this.productDetails.value.productcode)
   }

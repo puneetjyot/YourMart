@@ -17,7 +17,7 @@
                     font-size: 1.3rem;
              }
              .card{
-             width:600px;
+             width:400px;
              }
               .submit-btn {
 			    background: none;
@@ -25,6 +25,7 @@
 			    color: #ffffff;
 			    cursor: pointer;
 			}
+			
 </style>
 </head>
 <body>
@@ -46,15 +47,67 @@
         <span class="font-weight-light welcome">Welcome <c:out value="${user}" /></span>
 	</div>
 	</div>
-	<div class="text-sm-center">
-	<h3>${product.productname}</h3>
-	</div>
 	
+	
+	<div class="row">
+	<div class="col-sm-5">
 	<div class="card">
   <img class="card-img-top" src="${product.primaryimage}" alt="Card image cap">
   <div class="card-body"> 
    
    </div>
+</div>
+</div>
+<div class="col-sm-6">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h2 class="font-weight-light">${product.productname }</h2>
+              <span class="text-secondary">Product Id: ${product.id}</span>
+            </div>
+            <div class="py-3">
+              <h5>${product.status}</h5>
+            </div>
+          </div>
+          <div class="my-3">
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <td>Product Code</td>
+                  <td>${product.sellerproductcode}</td>
+                </tr>
+                <tr>
+                  <td>Short description</td>
+                  <td>{product.shortdiscription}</td>
+                </tr>
+                <tr>
+                  <td>Long Description</td>
+                  <td>${product.longdiscription}</td>
+                </tr>
+                <tr>
+                  <td>Dimensions</td>
+                  <td>${product.dimensions}</td>
+                </tr>
+                <tr>
+                  <td>MRP</td>
+                  <td>${product.mrp}</td>
+                </tr>
+                <tr>
+                  <td>SSP</td>
+                  <td>${product.ssp}</td>
+                </tr>
+                <tr>
+                  <td>YMP</td>
+                  <td>${product.ymp}</td>
+                </tr>
+                <tr>
+                  <td>Comments</td>
+                  <td>${product.comments}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+</div>
 </div>
   
   <div class="d-flex justify-content-center">
