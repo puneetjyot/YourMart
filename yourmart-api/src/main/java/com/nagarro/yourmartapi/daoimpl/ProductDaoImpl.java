@@ -127,6 +127,7 @@ public class ProductDaoImpl implements ProductDao {
 		Query query = session.createQuery(QueriesConstant.SELECT_PRODUCT_FROM_SELLERID);
 		query.setParameter("id",id);
 		query.setFirstResult(offset);
+		//this willl do pagination
 		query.setMaxResults(3);
 		List<Product> productList=query.list();
 		if(productList.size()>0) {
